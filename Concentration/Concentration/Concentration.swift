@@ -40,7 +40,7 @@ class Concentration {
                     indexOfOneAndOnlyFaceUpCard = nil
                 }
                
-            } // when the cards don't match and you flip for the third card
+            } // when the cards don't match and you flip the third card
               else {
                 // either no card or two cards face up
                 for flipdownIndex in cards.indices {
