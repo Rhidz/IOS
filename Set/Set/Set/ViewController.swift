@@ -103,23 +103,6 @@ class ViewController: UIViewController {
     
     
     
-    /* let at: [NSAttributedString.Key : Any] = [
-     .strokeColor : UIColor.blue,
-     .foregroundColor : UIColor.white,
-     
-     
-     ]
-     
-     let s = NSAttributedString(string: "●", attributes: at)
-     let attribute: [NSAttributedString.Key : Any] = [
-     .strokeColor : UIColor.purple,
-     .foregroundColor : UIColor.purple.withAlphaComponent(0.3),
-     .strokeWidth : -7.0,
-     .font : UIFont.systemFont(ofSize: 35)
-     
-     
-     
-     ] */
     
     /* let a = NSAttributedString(string: "▲", attributes: attribute)
      
@@ -133,7 +116,5 @@ class ViewController: UIViewController {
      */
     // Do any additional setup after loading the view, typically from a nib.
 }
-extension UIColor {
-    
-}
+
 
