@@ -12,7 +12,10 @@
 		B63DD8E022455505009E28FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B63DD8DE22455505009E28FE /* Main.storyboard */; };
 		B63DD8E222455506009E28FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B63DD8E122455506009E28FE /* Assets.xcassets */; };
 		B63DD8E522455506009E28FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B63DD8E322455506009E28FE /* LaunchScreen.storyboard */; };
-		B6BF3ABD22462D0600547425 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BF3ABC22462D0600547425 /* Deck.swift */; };
+		B6A18431224A0666008C8955 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A18430224A0666008C8955 /* SetGame.swift */; };
+		B6BF3ABD22462D0600547425 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BF3ABC22462D0600547425 /* Card.swift */; };
+		B6C492C2225CF3DE00188457 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C492C1225CF3DE00188457 /* SetCard.swift */; };
+		B6C492C4225CFDAF00188457 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C492C3225CFDAF00188457 /* Deck.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +26,10 @@
 		B63DD8E122455506009E28FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B63DD8E422455506009E28FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B63DD8E622455506009E28FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B6BF3ABC22462D0600547425 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		B6A18430224A0666008C8955 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
+		B6BF3ABC22462D0600547425 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		B6C492C1225CF3DE00188457 /* SetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCard.swift; sourceTree = "<group>"; };
+		B6C492C3225CFDAF00188457 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +62,13 @@
 		B63DD8D922455505009E28FE /* Set */ = {
 			isa = PBXGroup;
 			children = (
+				B6C492C1225CF3DE00188457 /* SetCard.swift */,
+				B6A18430224A0666008C8955 /* SetGame.swift */,
 				B63DD8DA22455505009E28FE /* AppDelegate.swift */,
 				B63DD8DC22455505009E28FE /* ViewController.swift */,
+				B6C492C3225CFDAF00188457 /* Deck.swift */,
 				B63DD8DE22455505009E28FE /* Main.storyboard */,
-				B6BF3ABC22462D0600547425 /* Deck.swift */,
+				B6BF3ABC22462D0600547425 /* Card.swift */,
 				B63DD8E122455506009E28FE /* Assets.xcassets */,
 				B63DD8E322455506009E28FE /* LaunchScreen.storyboard */,
 				B63DD8E622455506009E28FE /* Info.plist */,
@@ -99,6 +108,7 @@
 				TargetAttributes = {
 					B63DD8D622455505009E28FE = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -138,7 +148,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6BF3ABD22462D0600547425 /* Deck.swift in Sources */,
+				B6C492C4225CFDAF00188457 /* Deck.swift in Sources */,
+				B6C492C2225CF3DE00188457 /* SetCard.swift in Sources */,
+				B6BF3ABD22462D0600547425 /* Card.swift in Sources */,
+				B6A18431224A0666008C8955 /* SetGame.swift in Sources */,
 				B63DD8DD22455505009E28FE /* ViewController.swift in Sources */,
 				B63DD8DB22455505009E28FE /* AppDelegate.swift in Sources */,
 			);
@@ -294,7 +307,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Rhidita-CS-193p.Set";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -311,7 +324,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Rhidita-CS-193p.Set";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
