@@ -13,26 +13,31 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        //print(card.color)
-        
-       for button in cardButtons.indices{
-        
+       for button in  cardButtons.indices {
             cardButtons[button].layer.cornerRadius = 10.0
+            playingCards.append(game.drawModelCard())
+            print(button)
             let card = deck.drawCard()
-        let title = makeAttributes(shape: card.shape.rawValue, color: card.color.rawValue, content: card.content.rawValue, number: card.rank.rawValue.self)
+            let title = makeAttributes(shape: card.shape.rawValue, color: card.color.rawValue, content: card.content.rawValue, number: card.rank.rawValue.self)
             cardButtons[button].setAttributedTitle(title, for: .normal)
         }
-        
+       print(playingCards.count)
     }
     
+    var playingCards = [Card]()
     var deck = CardDeck()
+    var game = SetGame()
     
    
     @IBOutlet var cardButtons: [UIButton]!
+    
+    
 
     @IBAction func touchCard(_ sender: UIButton) {
+        
     }
+    
+   /* For adding attributes to the titles of my cards */
     
     func makeAttributes(shape: String, color: String, content: String, number: Int ) -> NSAttributedString {
         var string = ""
@@ -79,7 +84,7 @@ class ViewController: UIViewController {
             attributes.updateValue(c, forKey: .strokeColor)
             attributes.updateValue(-7.0, forKey: .strokeWidth)
         default:
-            print("Neve coming here")
+            print("Never coming here")
         }
         
         switch number {
@@ -96,25 +101,7 @@ class ViewController: UIViewController {
         let title = NSAttributedString(string: string, attributes: attributes)
         return title
     }
-    
-    /* Make an array of attributed strings, while loading select 24 or 12 of the 81 combinations.
-      Each time deal three cards button is pressed select three attributed strings from the array.
-      Make a dictionary of card and string to set title for that card using the attributed string */
-    
-    
-    
-    
-    /* let a = NSAttributedString(string: "▲", attributes: attribute)
-     
-     let button = cardButtons[1]
-     button.setAttributedTitle(s, for: .normal)
-     
-     let secondButton = cardButtons[0]
-     secondButton.setAttributedTitle(a, for: .normal)
-     
-     
-     */
-    // Do any additional setup after loading the view, typically from a nib.
+  
 }
 
 

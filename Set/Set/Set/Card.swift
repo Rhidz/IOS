@@ -12,15 +12,9 @@ struct Card: Hashable {
     
     var isSelected = false
     var isMatched = false
-    
-    
-    
-   /* var contentsOf = false this variable might be required for performing the match part of the game */
+    var contentsOf = false //this variable might be required for performing the match part of the game */
     var identifier: Int
     
-    
-    
- 
     static var indentifierFactory = 0
     
     static func getIdentifier() -> Int {
@@ -28,15 +22,7 @@ struct Card: Hashable {
         return indentifierFactory
     }
     
-    
-    
     init() {
         self.identifier = Card.getIdentifier()
     }
-    
-    
-    
-    
-    
-    
 }

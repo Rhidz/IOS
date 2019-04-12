@@ -15,7 +15,7 @@
 		B6A18431224A0666008C8955 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A18430224A0666008C8955 /* SetGame.swift */; };
 		B6BF3ABD22462D0600547425 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BF3ABC22462D0600547425 /* Card.swift */; };
 		B6C492C2225CF3DE00188457 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C492C1225CF3DE00188457 /* SetCard.swift */; };
-		B6C492C4225CFDAF00188457 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C492C3225CFDAF00188457 /* Deck.swift */; };
+		B6C492C4225CFDAF00188457 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C492C3225CFDAF00188457 /* CardDeck.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,7 @@
 		B6A18430224A0666008C8955 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		B6BF3ABC22462D0600547425 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		B6C492C1225CF3DE00188457 /* SetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCard.swift; sourceTree = "<group>"; };
-		B6C492C3225CFDAF00188457 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		B6C492C3225CFDAF00188457 /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 				B6A18430224A0666008C8955 /* SetGame.swift */,
 				B63DD8DA22455505009E28FE /* AppDelegate.swift */,
 				B63DD8DC22455505009E28FE /* ViewController.swift */,
-				B6C492C3225CFDAF00188457 /* Deck.swift */,
+				B6C492C3225CFDAF00188457 /* CardDeck.swift */,
 				B63DD8DE22455505009E28FE /* Main.storyboard */,
 				B6BF3ABC22462D0600547425 /* Card.swift */,
 				B63DD8E122455506009E28FE /* Assets.xcassets */,
@@ -148,7 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6C492C4225CFDAF00188457 /* Deck.swift in Sources */,
+				B6C492C4225CFDAF00188457 /* CardDeck.swift in Sources */,
 				B6C492C2225CF3DE00188457 /* SetCard.swift in Sources */,
 				B6BF3ABD22462D0600547425 /* Card.swift in Sources */,
 				B6A18431224A0666008C8955 /* SetGame.swift in Sources */,

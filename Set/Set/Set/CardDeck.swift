@@ -5,7 +5,7 @@
 //  Created by Ishrat Rhidita on 9/4/19.
 //  Copyright © 2019 Ishrat Rhidita. All rights reserved.
 //
-
+/* Creates Deck for the UI */
 import Foundation
 
 struct CardDeck {
