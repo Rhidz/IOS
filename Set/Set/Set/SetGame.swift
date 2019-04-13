@@ -27,7 +27,7 @@ struct SetGame {
         
         if(!playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched){
             playingCards[chosenCard].isSelected = true
-            print("I am here")
+            
         }
         else if (playingCards[chosenCard].isSelected){
             playingCards[chosenCard].isSelected = false

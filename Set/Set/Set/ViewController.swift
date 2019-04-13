@@ -44,7 +44,6 @@ class ViewController: UIViewController {
     @IBAction func touchCard(_ sender: UIButton) {
         if let cardNumber = cardButtons.firstIndex(of: sender) {
             game.touchCard(chosenCard: cardNumber)
-            print(cardNumber)
             updateView()
         }
         
@@ -124,7 +123,9 @@ class ViewController: UIViewController {
                 button.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
                 button.layer.cornerRadius = 17.0
                 button.layer.borderWidth = 2
-                button.layer.borderColor = UIColor.orange.cgColor            }
+                button.layer.borderColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+               
+            }
             else {
                 button.backgroundColor = #colorLiteral(red: 0.6064082384, green: 0.729287684, blue: 0.7931819558, alpha: 1)
                 button.layer.cornerRadius = 12.0
