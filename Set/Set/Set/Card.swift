@@ -10,9 +10,12 @@ import Foundation
 
 struct Card: Hashable {
     
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
     var isSelected = false
     var isMatched = false
-    var contentsOf = false //this variable might be required for performing the match part of the game */
+    var contentsOf = false
     var identifier: Int
     
     static var indentifierFactory = 0

@@ -9,10 +9,9 @@ import Foundation
 struct SetGame {
    
     var deck = [Card]()
-    /* this array required for chosing the cards and matching them. Maximum length of this
-     array should be three */
-    //var chosenCards = [Card]()
-   
+    var chosenCards : Int?
+    var playingCards = [Card]()
+    
     init() {
         for _ in 0..<81 {
             let card = Card()
@@ -21,10 +20,18 @@ struct SetGame {
         
     }
     
-    
    mutating func drawModelCard() -> Card {
-        let randomIndex = deck.count.arc4Random
-        return deck.remove(at: randomIndex)
+      return deck.removeFirst()
+    }
+    mutating func touchCard(chosenCard: Int) {
+        
+        if(!playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched){
+            playingCards[chosenCard].isSelected = true
+            print("I am here")
+        }
+        else if (playingCards[chosenCard].isSelected){
+            playingCards[chosenCard].isSelected = false
+        }
     }
 }
 

@@ -271,7 +271,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.020664304875923981" green="0.062135007284091055" blue="0.1514316307106599" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.020664304880000001" green="0.062135007280000001" blue="0.15143163069999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="Rqz-gI-EUP" firstAttribute="top" relation="lessThanOrEqual" secondItem="Ic0-wf-mpl" secondAttribute="bottom" constant="80" id="3qd-uy-xLr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Rqz-gI-EUP" secondAttribute="bottom" constant="18" id="Br7-Sk-RDF"/>
@@ -284,6 +284,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="dealCards" destination="rCr-DX-F0q" id="pAn-SL-4Ad"/>
+                        <outlet property="gameScore" destination="z9C-gs-jgo" id="XI1-Pk-hIh"/>
                         <outletCollection property="cardButtons" destination="yto-ah-pYa" collectionClass="NSMutableArray" id="nDO-Rv-UyG"/>
                         <outletCollection property="cardButtons" destination="oED-rw-hub" collectionClass="NSMutableArray" id="o84-Lr-ejR"/>
                         <outletCollection property="cardButtons" destination="mpF-gc-UO3" collectionClass="NSMutableArray" id="vyz-d8-YVW"/>
