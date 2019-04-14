@@ -43,11 +43,14 @@ class ViewController: UIViewController {
     
     @IBAction func touchCard(_ sender: UIButton) {
         if let cardNumber = cardButtons.firstIndex(of: sender) {
-            game.touchCard(chosenCard: cardNumber)
+            if let index = game.touchCard(chosenCard: cardNumber) {
+            checkContentsForMatching(forIndex: index)
+            }
+            else {
             updateView()
+            }
         }
-        
-    }
+   }
     
    /* For adding attributes to the titles of my cards */
     
@@ -112,31 +115,102 @@ class ViewController: UIViewController {
         
         let title = NSAttributedString(string: string, attributes: attributes)
         return title
-    }
+        }
     
  func updateView(){
         
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.playingCards[index]
-            if card.isSelected {
+            if card.isSelected && !card.isMatched{
                 button.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
                 button.layer.cornerRadius = 17.0
                 button.layer.borderWidth = 2
                 button.layer.borderColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
                
             }
-            else {
+            else if !card.isMatched{
                 button.backgroundColor = #colorLiteral(red: 0.6064082384, green: 0.729287684, blue: 0.7931819558, alpha: 1)
                 button.layer.cornerRadius = 12.0
                 button.layer.borderWidth = 0
                 button.layer.borderColor = nil
             }
+            else {
+                button.backgroundColor = #colorLiteral(red: 0.0104322182, green: 0.06354571134, blue: 0.1578483284, alpha: 1)
+            }
         }
         
     }
+    
+    func checkContentsForMatching(forIndex: Int) {
+        var listOfChosenCards = game.indicesOfChosenCards
+        var cards = [SetCard]()
+        for index in listOfChosenCards.indices {
+            cards.append(cardTitles[game.playingCards[listOfChosenCards[index]]]!)
+        }
+        if cards[0].color == cards[1].color && cards[1].color == cards[2].color {
+            game.playingCards[listOfChosenCards[0]].color = true
+            game.playingCards[listOfChosenCards[1]].color = true
+            game.playingCards[listOfChosenCards[2]].color = true
+        }
+        else if cards[0].color == cards[1].color {
+            game.playingCards[listOfChosenCards[0]].color = true
+            game.playingCards[listOfChosenCards[1]].color = true
+        }
+        else if cards[1].color == cards[2].color {
+            game.playingCards[listOfChosenCards[1]].color = true
+            game.playingCards[listOfChosenCards[2]].color = true
+
+        }
+        /* for shape */
+        if cards[0].shape == cards[1].shape && cards[1].shape == cards[2].shape {
+            game.playingCards[listOfChosenCards[0]].shape = true
+            game.playingCards[listOfChosenCards[1]].shape = true
+            game.playingCards[listOfChosenCards[2]].shape = true
+        }
+        else if cards[0].shape == cards[1].shape{
+            game.playingCards[listOfChosenCards[0]].shape = true
+            game.playingCards[listOfChosenCards[1]].shape = true
+        }
+        else if cards[1].shape == cards[2].shape{
+            game.playingCards[listOfChosenCards[1]].shape = true
+            game.playingCards[listOfChosenCards[2]].shape = true
+    }
+        /* for content */
   
+        if cards[0].content == cards[1].content && cards[1].content == cards[2].content {
+            game.playingCards[listOfChosenCards[0]].content = true
+            game.playingCards[listOfChosenCards[1]].content = true
+            game.playingCards[listOfChosenCards[2]].content = true
+        }
+        else if cards[0].shape == cards[1].shape{
+            game.playingCards[listOfChosenCards[0]].content = true
+            game.playingCards[listOfChosenCards[1]].content = true
+        }
+        else if cards[1].shape == cards[2].shape{
+            game.playingCards[listOfChosenCards[1]].content = true
+            game.playingCards[listOfChosenCards[2]].content = true
+        }
+      /* for number */
+        if cards[0].rank == cards[1].rank && cards[1].rank == cards[2].rank {
+            game.playingCards[listOfChosenCards[0]].number = true
+            game.playingCards[listOfChosenCards[1]].number = true
+            game.playingCards[listOfChosenCards[2]].number = true
+        }
+        else if cards[0].shape == cards[1].shape{
+            game.playingCards[listOfChosenCards[0]].number = true
+            game.playingCards[listOfChosenCards[1]].number = true
+        }
+        else if cards[1].shape == cards[2].shape{
+            game.playingCards[listOfChosenCards[1]].number = true
+            game.playingCards[listOfChosenCards[2]].number = true
+        }
+        game.matchCards(indexOf4thCard: forIndex)
+        updateView()
+    }
+    
     
 }
+
 
 

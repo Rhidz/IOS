@@ -15,8 +15,11 @@ struct Card: Hashable {
     }
     var isSelected = false
     var isMatched = false
-    var contentsOf = false
     var identifier: Int
+    var color = false
+    var shape = false
+    var number = false
+    var content = false
     
     static var indentifierFactory = 0
     
