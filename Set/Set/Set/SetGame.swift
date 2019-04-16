@@ -13,6 +13,7 @@ struct SetGame {
     var playingCards = [Card]()
     /* never remove an index until deal card button is pressed */
     var indicesOfChosenCards = [Int]()
+    var indicesofMatchedCards = [Int]()
     
     init() {
         for _ in 0..<81 {
@@ -28,33 +29,36 @@ struct SetGame {
     mutating func touchCard(chosenCard: Int) -> Int? {
         /* when no cards are chosen */
         var index: Int?
-        if(!playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched &&  chosenCards < 3){
+        if(!playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched) {
+            
+            if chosenCards < 3 {
             playingCards[chosenCard].isSelected = true
             chosenCards += 1
             indicesOfChosenCards.append(chosenCard)
+            print(chosenCard)
             index = nil
-            
+            }
+            else if chosenCards == 3 {
+               index = chosenCard
+            }
             
         }
             /* when deselecting a card */
-        else if ( playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched && chosenCards < 3){
-            playingCards[chosenCard].isSelected = false
-            chosenCards -= 1
-            for index in indicesOfChosenCards.indices {
-                if indicesOfChosenCards[index] == chosenCard {
-                    indicesOfChosenCards.remove(at: index)
+        else if  playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched && chosenCards < 3 {
+            //print("I am here ")
+            //print(indicesOfChosenCards)
+            for i in indicesOfChosenCards.indices {
+                if indicesOfChosenCards[i] == chosenCard {
+                    indicesOfChosenCards.remove(at: i)
+                    break
                 }
             }
+            playingCards[chosenCard].isSelected = false
+            chosenCards -= 1
             
             index = nil
         }
-            /* when the fourth card is selected */
-            /*After chosing the third card can't deselect the third card */
-        else if (!playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched && chosenCards == 3){
-           index = chosenCard
-        }
-         
-        else if ( playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched && chosenCards == 3){
+           else if (playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched && chosenCards == 3){
             index = nil
         }
     
@@ -63,37 +67,63 @@ struct SetGame {
     
     
     mutating func matchCards(indexOf4thCard: Int) {
+        var matchCount = [0,0,0,0]
         var matchFound = false
+       
         for i in indicesOfChosenCards.indices {
-            if !playingCards[indicesOfChosenCards[i]].color {
-                matchFound = false
+            if playingCards[indicesOfChosenCards[i]].color {
+                matchCount[0] += 1
+                print(matchCount[0])
             }
-            else {
-                matchFound = true
+            
+            if playingCards[indicesOfChosenCards[i]].shape {
+                matchCount[1] += 1
+                print(matchCount[1])
             }
-            if !playingCards[indicesOfChosenCards[i]].shape {
-                matchFound = false
+            
+            if playingCards[indicesOfChosenCards[i]].content {
+                matchCount[2] += 1
             }
-            else {
-                matchFound = true
+            
+            if playingCards[indicesOfChosenCards[i]].number {
+                matchCount[3] += 1
             }
-            if !playingCards[indicesOfChosenCards[i]].content {
-                matchFound = false
-            }
-            else {
-                matchFound = true
-            }
-            if !playingCards[indicesOfChosenCards[i]].number {
-                matchFound = false
-            }
-            else {
-                matchFound = true
-            }
+           
         }
+        
+        for i in matchCount.indices {
+            if i == 0 {
+                if (matchCount[i] == 3) && (matchCount[i+1] == 0 || matchCount[i+1] == 3) && (matchCount[i+2] == 0 || matchCount[i+2] == 3) &&  (matchCount[i+3] == 0 || matchCount[i+3] == 3) {
+                    matchFound = true
+                }
+                
+            }
+            else if i == 1 {
+                if (matchCount[i-1] == 0 || matchCount[i-1] == 3 ) && (matchCount[i] == 3) && (matchCount[i+1] == 0 || matchCount[i+1] == 3) && (matchCount[i+2]  == 0 || matchCount[i+2] == 3) {
+                    matchFound = true
+                }
+            }
+            else if i == 2 {
+                if (matchCount[i-2] == 0 || matchCount[i-2] == 3) && (matchCount[i-1] == 0 || matchCount[i-1] == 3 ) && (matchCount[i] == 3) && (matchCount[i+1] == 0 || matchCount[i+1] == 3) {
+                    matchFound = true
+                }
+            }
+            else {
+                if (matchCount[i-3] == 0 || matchCount[i-3] == 3)  && (matchCount[i-2] == 0 || matchCount[i-2] == 3) && (matchCount[i-1] == 0 || matchCount[i-1] == 3) && (matchCount[i] == 3) {
+                    matchFound = true
+                }
+            }
+           
+        }
+       
         
         if matchFound {
             for i in indicesOfChosenCards.indices {
                 playingCards[indicesOfChosenCards[i]].isMatched = true
+            }
+            //indicesOfChosenCards.removeAll()
+            for i in indicesofMatchedCards.indices {
+                indicesofMatchedCards[i] = indicesOfChosenCards[i]
             }
             indicesOfChosenCards.removeAll()
             indicesOfChosenCards.append(indexOf4thCard)
@@ -105,6 +135,27 @@ struct SetGame {
                 }
             }
         }
+        else {
+            indicesOfChosenCards.removeAll()
+            indicesOfChosenCards.append(indexOf4thCard)
+            playingCards[indexOf4thCard].isSelected = true
+            chosenCards = 1
+            for index in playingCards.indices {
+                if index != indexOf4thCard && !playingCards[index].isMatched{
+                    playingCards[index].isSelected = false
+                }
+            }
+        }
 }
+    mutating func dealCards()-> [Int] {
+        if indicesofMatchedCards.count > 0 {
+        for index in indicesofMatchedCards.indices {
+            playingCards[indicesofMatchedCards[index]] = drawModelCard()
+            
+        }
+       
+    }
+         return indicesofMatchedCards
+    }
 }
 
