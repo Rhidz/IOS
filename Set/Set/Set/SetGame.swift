@@ -6,7 +6,6 @@
 /* Model */
 import Foundation
 struct SetGame {
-   
     var deck = [Card]()
     var chosenCards = 0
     var playingCards = [Card]()
@@ -19,7 +18,6 @@ struct SetGame {
             let card = Card()
             deck += [card]
         }
-        
     }
     
    mutating func drawModelCard() -> Card {
