@@ -106,7 +106,7 @@ class ViewController: UIViewController {
         
         switch number {
         case 1:
-            print("nothing to add")
+            print("")
         case 2:
             string = string + string
         case 3:
@@ -157,7 +157,7 @@ class ViewController: UIViewController {
         
         for index in game.indicesOfChosenCards.indices {
           cards.append(cardTitles[testCards[game.indicesOfChosenCards[index]]]!)
-           print(cards[index].color)
+            print(cards[index].color)
         }
         
         /* for color */
@@ -170,7 +170,7 @@ class ViewController: UIViewController {
         else if cards[0].color == cards[1].color {
             game.playingCards[game.indicesOfChosenCards[0]].color = true
             game.playingCards[game.indicesOfChosenCards[1]].color = true
-            print("I am 2")
+            
         }
         else if cards[1].color == cards[2].color {
             game.playingCards[game.indicesOfChosenCards[1]].color = true
@@ -233,7 +233,7 @@ class ViewController: UIViewController {
             game.playingCards[game.indicesOfChosenCards[2]].number = true
         }
         else if cards[0].rank == cards[2].rank {
-            game.playingCards[game.indicesOfChosenCards[1]].number = true
+            game.playingCards[game.indicesOfChosenCards[0]].number = true
             game.playingCards[game.indicesOfChosenCards[2]].number = true
         }
         game.matchCards(indexOf4thCard: forIndex)
@@ -242,6 +242,7 @@ class ViewController: UIViewController {
   
     @IBAction func deal(_ sender: Any) {
         var places = game.dealCards()
+        print(places)
         for index in places.indices {
             testCards[places[index]] = game.playingCards[places[index]]
             let card = deck.drawCard()

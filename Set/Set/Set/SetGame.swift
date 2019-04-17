@@ -35,7 +35,7 @@ struct SetGame {
             playingCards[chosenCard].isSelected = true
             chosenCards += 1
             indicesOfChosenCards.append(chosenCard)
-            print(chosenCard)
+            //print(chosenCard)
             index = nil
             }
             else if chosenCards == 3 {
@@ -73,12 +73,12 @@ struct SetGame {
         for i in indicesOfChosenCards.indices {
             if playingCards[indicesOfChosenCards[i]].color {
                 matchCount[0] += 1
-                print(matchCount[0])
+                
             }
             
             if playingCards[indicesOfChosenCards[i]].shape {
                 matchCount[1] += 1
-                print(matchCount[1])
+                
             }
             
             if playingCards[indicesOfChosenCards[i]].content {
@@ -108,7 +108,7 @@ struct SetGame {
                     matchFound = true
                 }
             }
-            else {
+            else if i == 3 {
                 if (matchCount[i-3] == 0 || matchCount[i-3] == 3)  && (matchCount[i-2] == 0 || matchCount[i-2] == 3) && (matchCount[i-1] == 0 || matchCount[i-1] == 3) && (matchCount[i] == 3) {
                     matchFound = true
                 }
@@ -123,8 +123,10 @@ struct SetGame {
             }
             //indicesOfChosenCards.removeAll()
             for i in indicesofMatchedCards.indices {
-                indicesofMatchedCards[i] = indicesOfChosenCards[i]
+               indicesofMatchedCards.append(indicesOfChosenCards[i])
+               print(indicesofMatchedCards)
             }
+            
             indicesOfChosenCards.removeAll()
             indicesOfChosenCards.append(indexOf4thCard)
             playingCards[indexOf4thCard].isSelected = true
@@ -150,12 +152,13 @@ struct SetGame {
     mutating func dealCards()-> [Int] {
         if indicesofMatchedCards.count > 0 {
         for index in indicesofMatchedCards.indices {
-            playingCards[indicesofMatchedCards[index]] = drawModelCard()
+            playingCards.insert(drawModelCard(), at: indicesOfChosenCards[index])
             
         }
        
     }
-         return indicesofMatchedCards
+        print(indicesofMatchedCards)
+        return indicesofMatchedCards
     }
 }
 
