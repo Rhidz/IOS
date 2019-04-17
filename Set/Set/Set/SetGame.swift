@@ -21,7 +21,13 @@ struct SetGame {
     }
     
    mutating func drawModelCard() -> Card {
-      return deck.removeFirst()
+    var c: Card?
+    if deck.isEmpty {
+        c = nil
+    }else{
+        c = deck.removeFirst()
+    }
+    return c!
     }
     mutating func touchCard(chosenCard: Int) -> Int? {
         /* when no cards are chosen */
@@ -32,7 +38,7 @@ struct SetGame {
             playingCards[chosenCard].isSelected = true
             chosenCards += 1
             indicesOfChosenCards.append(chosenCard)
-            //print(chosenCard)
+            print(playingCards[chosenCard].isSelected)
             index = nil
             }
             else if chosenCards == 3 {
@@ -147,15 +153,19 @@ struct SetGame {
         }
 }
     mutating func dealCards()-> [Int] {
+        /* try to use a tuple here */
+        var lisOfIndexes = [Int]()
         if indicesofMatchedCards.count > 0 {
-        for index in indicesofMatchedCards.indices {
-            playingCards.insert(drawModelCard(), at: indicesOfChosenCards[index])
+        for i in 0...2 {
+            playingCards[indicesofMatchedCards[i]] = drawModelCard()
+            lisOfIndexes.append(indicesofMatchedCards[i])
+            //indicesofMatchedCards.removeFirst()
             
         }
        
     }
-        print(indicesofMatchedCards)
-        return indicesofMatchedCards
+        //print(indicesofMatchedCards)
+        return lisOfIndexes
     }
 }
 
