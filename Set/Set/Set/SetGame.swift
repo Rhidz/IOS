@@ -5,7 +5,6 @@
 
 /* Model */
 import Foundation
-
 struct SetGame {
    
     var deck = [Card]()
