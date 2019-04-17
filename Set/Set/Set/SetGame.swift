@@ -119,7 +119,7 @@ struct SetGame {
                 playingCards[indicesOfChosenCards[i]].isMatched = true
             }
             //indicesOfChosenCards.removeAll()
-            for i in indicesofMatchedCards.indices {
+            for i in indicesOfChosenCards.indices {
                indicesofMatchedCards.append(indicesOfChosenCards[i])
                print(indicesofMatchedCards)
             }
