@@ -155,18 +155,9 @@ struct SetGame {
     mutating func dealCards()-> [Int] {
         /* try to use a tuple here */
         var lisOfIndexes = [Int]()
-<<<<<<< HEAD
+
         if indicesofMatchedCards.count > 0 {
-=======
-        if indicesofMatchedCards.count {
-           
-        for i in 0...2 {
-            playingCards[indicesofMatchedCards[i]] = drawModelCard()
-            lisOfIndexes.append(indicesofMatchedCards[i])
-            //indicesofMatchedCards.removeFirst()
->>>>>>> 4f2318c6f2e5a0f815205365b6a19500b3db4715
-            
-            for i in 0...2 {
+              for i in 0...2 {
                 playingCards[indicesofMatchedCards[i]] = drawModelCard()
                 lisOfIndexes.append(indicesofMatchedCards[i])
                 //indicesofMatchedCards.removeFirst()
@@ -178,19 +169,9 @@ struct SetGame {
             else {
                 indicesofMatchedCards.removeFirst(3)
             }
-        }
-<<<<<<< HEAD
-=======
-            if(indicesOfMatchedCards.count == 3) {
-                indicesOfMatchedCards.removeAll()
-            }
-            else {
-               indicesOfMatchedCards.removeFirst(3)
-            }
+      
+       
     }
->>>>>>> 4f2318c6f2e5a0f815205365b6a19500b3db4715
-        //print(indicesofMatchedCards)
-        return lisOfIndexes
-    }
+         return lisOfIndexes
 }
-
+}
