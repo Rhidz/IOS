@@ -156,14 +156,20 @@ struct SetGame {
         /* try to use a tuple here */
         var lisOfIndexes = [Int]()
         if indicesofMatchedCards.count > 0 {
-        for i in 0...2 {
-            playingCards[indicesofMatchedCards[i]] = drawModelCard()
-            lisOfIndexes.append(indicesofMatchedCards[i])
-            //indicesofMatchedCards.removeFirst()
             
+            for i in 0...2 {
+                playingCards[indicesofMatchedCards[i]] = drawModelCard()
+                lisOfIndexes.append(indicesofMatchedCards[i])
+                //indicesofMatchedCards.removeFirst()
+                
+            }
+            if(indicesofMatchedCards.count == 3) {
+                indicesofMatchedCards.removeAll()
+            }
+            else {
+                indicesofMatchedCards.removeFirst(3)
+            }
         }
-       
-    }
         //print(indicesofMatchedCards)
         return lisOfIndexes
     }
