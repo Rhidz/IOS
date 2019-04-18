@@ -157,7 +157,9 @@ class ViewController: UIViewController {
         
         for index in game.indicesOfChosenCards.indices {
           cards.append(cardTitles[testCards[game.indicesOfChosenCards[index]]]!)
-            print(cards[index].color)
+            print("\(cards[index].color) + \(cards[index].content) + \(cards[index].rank)")
+            
+            
         }
         
         /* for color */
