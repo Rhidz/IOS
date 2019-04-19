@@ -9,10 +9,8 @@ struct SetGame {
     var deck = [Card]()
     var chosenCards = 0
     var playingCards = [Card]()
-    /* never remove an index until deal card button is pressed */
     var indicesOfChosenCards = [Int]()
     var indicesofMatchedCards = [Int]()
-    
     init() {
         for _ in 0..<81 {
             let card = Card()
@@ -42,9 +40,7 @@ struct SetGame {
                index = chosenCard
             }
             
-        }
-            /* when deselecting a card */
-        else if  playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched && chosenCards < 3 {
+        }else if  playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched && chosenCards < 3 {
             for i in indicesOfChosenCards.indices {
                 if indicesOfChosenCards[i] == chosenCard {
                     indicesOfChosenCards.remove(at: i)
@@ -86,32 +82,19 @@ struct SetGame {
             if i == 0 {
                 if (matchCount[i] == 3) && (matchCount[i+1] == 0 || matchCount[i+1] == 3) && (matchCount[i+2] == 0 || matchCount[i+2] == 3) &&  (matchCount[i+3] == 0 || matchCount[i+3] == 3) {
                     matchFound = true
-                    
-                }
-                
-            }
+               } }
             else if i == 1 {
                 if (matchCount[i-1] == 0 || matchCount[i-1] == 3 ) && (matchCount[i] == 3) && (matchCount[i+1] == 0 || matchCount[i+1] == 3) && (matchCount[i+2]  == 0 || matchCount[i+2] == 3) {
                     matchFound = true
-                    
-                }
-            }
+                } }
             else if i == 2 {
                 if (matchCount[i-2] == 0 || matchCount[i-2] == 3) && (matchCount[i-1] == 0 || matchCount[i-1] == 3 ) && (matchCount[i] == 3) && (matchCount[i+1] == 0 || matchCount[i+1] == 3) {
                     matchFound = true
-                    
-                }
-            }
+            } }
             else  {
                 if (matchCount[i-3] == 0 || matchCount[i-3] == 3)  && (matchCount[i-2] == 0 || matchCount[i-2] == 3) && (matchCount[i-1] == 0 || matchCount[i-1] == 3) && (matchCount[i] == 3) {
                     matchFound = true
-                    
-                }
-            }
-           
-        }
-       
-        
+               } } }
         if matchFound {
             for i in indicesOfChosenCards.indices {
                 playingCards[indicesOfChosenCards[i]].isMatched = true

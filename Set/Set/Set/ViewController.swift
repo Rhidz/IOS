@@ -29,7 +29,6 @@ class ViewController: UIViewController {
         }
         
     }
-    
     var cardTitles = [Card:SetCard]()
     var deck = CardDeck()
     var game = SetGame()
@@ -53,9 +52,6 @@ class ViewController: UIViewController {
             }
         }
    }
-    
-   /* For adding attributes to the titles of my cards */
-    
     func makeAttributes(shape: String, color: String, content: String, number: Int ) -> NSAttributedString {
         var string = ""
         var c: UIColor
@@ -118,8 +114,7 @@ class ViewController: UIViewController {
         let title = NSAttributedString(string: string, attributes: attributes)
         return title
         }
-    
- func updateView(){
+    func updateView(){
         
         for index in cardButtons.indices {
             let button = cardButtons[index]
@@ -158,10 +153,7 @@ class ViewController: UIViewController {
         for index in game.indicesOfChosenCards.indices {
           cards.append(cardTitles[testCards[game.indicesOfChosenCards[index]]]!)
             print("\(cards[index].color) + \(cards[index].content) + \(cards[index].rank)")
-            
-            
-        }
-        
+         }
         /* for color */
         if (cards[0].color == cards[1].color) && (cards[1].color == cards[2].color) && (cards[0].color == cards[2].color) {
             game.playingCards[game.indicesOfChosenCards[0]].color = true
@@ -202,8 +194,7 @@ class ViewController: UIViewController {
             game.playingCards[game.indicesOfChosenCards[2]].shape = true
         }
         /* for content */
-  
-        if (cards[0].content == cards[1].content) && (cards[1].content == cards[2].content) && (cards[0].content == cards[2].content) {
+      if (cards[0].content == cards[1].content) && (cards[1].content == cards[2].content) && (cards[0].content == cards[2].content) {
             game.playingCards[game.indicesOfChosenCards[0]].content = true
             game.playingCards[game.indicesOfChosenCards[1]].content = true
             game.playingCards[game.indicesOfChosenCards[2]].content = true
@@ -241,7 +232,6 @@ class ViewController: UIViewController {
         game.matchCards(indexOf4thCard: forIndex)
         updateView()
     }
-  
     @IBAction func deal(_ sender: Any) {
         var places = game.dealCards()
         print(places)
