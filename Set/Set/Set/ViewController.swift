@@ -189,14 +189,14 @@ class ViewController: UIViewController {
             game.playingCards[game.indicesOfChosenCards[1]].shape = true
             game.playingCards[game.indicesOfChosenCards[2]].shape = true
         }
-        else if cards[0].shape == cards[1].shape{
+        else if cards[0].shape == cards[1].shape {
             game.playingCards[game.indicesOfChosenCards[0]].shape = true
             game.playingCards[game.indicesOfChosenCards[1]].shape = true
         }
-        else if cards[1].shape == cards[2].shape{
+        else if cards[1].shape == cards[2].shape {
             game.playingCards[game.indicesOfChosenCards[1]].shape = true
             game.playingCards[game.indicesOfChosenCards[2]].shape = true
-    }
+        }
         else if cards[0].shape == cards[2].shape {
             game.playingCards[game.indicesOfChosenCards[0]].shape = true
             game.playingCards[game.indicesOfChosenCards[2]].shape = true
@@ -237,7 +237,7 @@ class ViewController: UIViewController {
         else if cards[0].rank == cards[2].rank {
             game.playingCards[game.indicesOfChosenCards[0]].number = true
             game.playingCards[game.indicesOfChosenCards[2]].number = true
-        }
+        } 
         game.matchCards(indexOf4thCard: forIndex)
         updateView()
     }
@@ -247,6 +247,7 @@ class ViewController: UIViewController {
         print(places)
         for index in places.indices {
             testCards[places[index]] = game.playingCards[places[index]]
+            print(testCards[places[index]])
             let card = deck.drawCard()
             cardTitles[testCards[places[index]]] = card
            let title = makeAttributes(shape: card.shape.rawValue, color: card.color.rawValue, content: card.content.rawValue, number: card.rank.rawValue.self)
