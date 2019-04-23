@@ -24,9 +24,10 @@ struct SetGame {
     }else{
         c = deck.removeFirst()
     }
-    return c!
+    return c ?? Card()
     }
- mutating func touchCard(chosenCard: Int) -> Int? {
+ 
+    mutating func touchCard(chosenCard: Int) -> Int? {
         var index: Int?
         if(!playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched) {
            if chosenCards < 3 {

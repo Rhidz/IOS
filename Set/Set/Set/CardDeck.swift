@@ -9,9 +9,9 @@
 import Foundation
 
 struct CardDeck {
-    
+
     private(set) var cards = [SetCard]()
-    
+    var emptySetCard = SetCard(shape: .emoji, color: .blue, content: .different, rank: .four)
     init() {
         for shape in SetCard.Shape.allShape {
             for color in SetCard.Color.allColor {
@@ -24,19 +24,19 @@ struct CardDeck {
         }
         cards.shuffle()
     }
-    
    mutating func drawCard() -> SetCard {
-        
+    var card: SetCard
+    if !cards.isEmpty{
         let randomIndex = cards.count.arc4Random
-        let card = cards.remove(at: randomIndex)
-    
-        return card
-        
+        card = cards.remove(at: randomIndex)
     }
-    
+    else{
+        card = emptySetCard
+    }
+    return card
 }
-    
-    extension Int {
+}
+extension Int {
         var arc4Random: Int {
             switch self {
             case 1...Int.max:

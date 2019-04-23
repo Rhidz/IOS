@@ -70,7 +70,7 @@ class ViewController: UIViewController {
         case "circle":
             string = "●"
         default:
-            string = ""
+            string = "No more Cards Left"
         }
         
         switch color {
@@ -81,7 +81,7 @@ class ViewController: UIViewController {
         case "purple":
             c = UIColor.purple
         default:
-            c = UIColor.white
+            c = UIColor.blue
         }
         
         switch content {
@@ -97,7 +97,8 @@ class ViewController: UIViewController {
             attributes.updateValue(c, forKey: .strokeColor)
             attributes.updateValue(-7.0, forKey: .strokeWidth)
         default:
-            print("Never coming here")
+            attributes.updateValue(c, forKey: .foregroundColor)
+            attributes.updateValue(c, forKey: .strokeColor)
         }
         
         switch number {
@@ -108,7 +109,7 @@ class ViewController: UIViewController {
         case 3:
             string = string + string + string
         default:
-            print("whatever")
+            string = "No more card dumbass!!"
         }
         
         let title = NSAttributedString(string: string, attributes: attributes)
@@ -145,21 +146,16 @@ class ViewController: UIViewController {
     }
     
     func checkContentsForMatching(forIndex: Int) {
-       
         var cards = [SetCard]()
-        /*print(game.indicesOfChosenCards)
-        print(game.indicesOfChosenCards.indices) */
-        
         for index in game.indicesOfChosenCards.indices {
-          cards.append(cardTitles[testCards[game.indicesOfChosenCards[index]]]!)
-            print("\(cards[index].color) + \(cards[index].content) + \(cards[index].rank)")
-         }
-        /* for color */
+            cards.append(cardTitles[testCards[game.indicesOfChosenCards[index]]]!)
+        }
+          /* for color */
         if (cards[0].color == cards[1].color) && (cards[1].color == cards[2].color) && (cards[0].color == cards[2].color) {
             game.playingCards[game.indicesOfChosenCards[0]].color = true
             game.playingCards[game.indicesOfChosenCards[1]].color = true
             game.playingCards[game.indicesOfChosenCards[2]].color = true
-            //print("I am here")
+            
         }
         else if cards[0].color == cards[1].color {
             game.playingCards[game.indicesOfChosenCards[0]].color = true
@@ -234,7 +230,7 @@ class ViewController: UIViewController {
     }
     @IBAction func deal(_ sender: Any) {
         var places = game.dealCards()
-        print(places)
+        //print(places)
         for index in places.indices {
             testCards[places[index]] = game.playingCards[places[index]]
             print(testCards[places[index]])
