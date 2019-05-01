@@ -145,86 +145,60 @@ class ViewController: UIViewController {
         
     }
     
+    func colorSetting(param0: SetCard.Color, param1: SetCard.Color, param2: SetCard.Color) {
+        let allColorsMatch = (param0 == param1) && (param1 == param2) && (param0 == param2)
+        
+        let zeroAndOneMatch = param0 == param1
+        let oneAndTwoMatch = param1 == param2
+        let zeroAndTwoMatch = param0 == param2
+        
+        game.playingCards[game.indicesOfChosenCards[0]].color = allColorsMatch || zeroAndOneMatch || zeroAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[1]].color = allColorsMatch || zeroAndOneMatch || oneAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[2]].color = allColorsMatch || zeroAndTwoMatch || oneAndTwoMatch
+    }
+    func rankSetting(param0: SetCard.Number, param1: SetCard.Number, param2: SetCard.Number) {
+        let allColorsMatch = (param0 == param1) && (param1 == param2) && (param0 == param2)
+        
+        let zeroAndOneMatch = param0 == param1
+        let oneAndTwoMatch = param1 == param2
+        let zeroAndTwoMatch = param0 == param2
+        
+        game.playingCards[game.indicesOfChosenCards[0]].number = allColorsMatch || zeroAndOneMatch || zeroAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[1]].number = allColorsMatch || zeroAndOneMatch || oneAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[2]].number = allColorsMatch || zeroAndTwoMatch || oneAndTwoMatch
+    }
+    func contentSetting(param0: SetCard.Content, param1: SetCard.Content, param2: SetCard.Content) {
+        let allColorsMatch = (param0 == param1) && (param1 == param2) && (param0 == param2)
+        
+        let zeroAndOneMatch = param0 == param1
+        let oneAndTwoMatch = param1 == param2
+        let zeroAndTwoMatch = param0 == param2
+        
+        game.playingCards[game.indicesOfChosenCards[0]].content = allColorsMatch || zeroAndOneMatch || zeroAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[1]].content = allColorsMatch || zeroAndOneMatch || oneAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[2]].content = allColorsMatch || zeroAndTwoMatch || oneAndTwoMatch
+    }
+    func shapeSetting(param0: SetCard.Shape, param1: SetCard.Shape, param2: SetCard.Shape) {
+        let allColorsMatch = (param0 == param1) && (param1 == param2) && (param0 == param2)
+        
+        let zeroAndOneMatch = param0 == param1
+        let oneAndTwoMatch = param1 == param2
+        let zeroAndTwoMatch = param0 == param2
+        
+        game.playingCards[game.indicesOfChosenCards[0]].shape = allColorsMatch || zeroAndOneMatch || zeroAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[1]].shape = allColorsMatch || zeroAndOneMatch || oneAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[2]].shape = allColorsMatch || zeroAndTwoMatch || oneAndTwoMatch
+    }
+    
     func checkContentsForMatching(forIndex: Int) {
         var cards = [SetCard]()
         for index in game.indicesOfChosenCards.indices {
             cards.append(cardTitles[testCards[game.indicesOfChosenCards[index]]]!)
         }
-          /* for color */
-        if (cards[0].color == cards[1].color) && (cards[1].color == cards[2].color) && (cards[0].color == cards[2].color) {
-            game.playingCards[game.indicesOfChosenCards[0]].color = true
-            game.playingCards[game.indicesOfChosenCards[1]].color = true
-            game.playingCards[game.indicesOfChosenCards[2]].color = true
-            
-        }
-        else if cards[0].color == cards[1].color {
-            game.playingCards[game.indicesOfChosenCards[0]].color = true
-            game.playingCards[game.indicesOfChosenCards[1]].color = true
-            
-        }
-        else if cards[1].color == cards[2].color {
-            game.playingCards[game.indicesOfChosenCards[1]].color = true
-            game.playingCards[game.indicesOfChosenCards[2]].color = true
-
-        }
-        else if cards[0].color == cards[2].color {
-            game.playingCards[game.indicesOfChosenCards[0]].color = true
-            game.playingCards[game.indicesOfChosenCards[2]].color = true
-        }
-        /* for shape */
-        if (cards[0].shape == cards[1].shape) && (cards[1].shape == cards[2].shape) && (cards[0].shape == cards[2].shape) {
-            game.playingCards[game.indicesOfChosenCards[0]].shape = true
-            game.playingCards[game.indicesOfChosenCards[1]].shape = true
-            game.playingCards[game.indicesOfChosenCards[2]].shape = true
-        }
-        else if cards[0].shape == cards[1].shape {
-            game.playingCards[game.indicesOfChosenCards[0]].shape = true
-            game.playingCards[game.indicesOfChosenCards[1]].shape = true
-        }
-        else if cards[1].shape == cards[2].shape {
-            game.playingCards[game.indicesOfChosenCards[1]].shape = true
-            game.playingCards[game.indicesOfChosenCards[2]].shape = true
-        }
-        else if cards[0].shape == cards[2].shape {
-            game.playingCards[game.indicesOfChosenCards[0]].shape = true
-            game.playingCards[game.indicesOfChosenCards[2]].shape = true
-        }
-        /* for content */
-      if (cards[0].content == cards[1].content) && (cards[1].content == cards[2].content) && (cards[0].content == cards[2].content) {
-            game.playingCards[game.indicesOfChosenCards[0]].content = true
-            game.playingCards[game.indicesOfChosenCards[1]].content = true
-            game.playingCards[game.indicesOfChosenCards[2]].content = true
-        }
-        else if cards[0].content == cards[1].content{
-            game.playingCards[game.indicesOfChosenCards[0]].content = true
-            game.playingCards[game.indicesOfChosenCards[1]].content = true
-        }
-        else if cards[1].content == cards[2].content {
-            game.playingCards[game.indicesOfChosenCards[1]].content = true
-            game.playingCards[game.indicesOfChosenCards[2]].content = true
-        }
-        else if cards[0].content == cards[2].content {
-            game.playingCards[game.indicesOfChosenCards[0]].content = true
-            game.playingCards[game.indicesOfChosenCards[2]].content = true
-        }
-      /* for number */
-        if (cards[0].rank == cards[1].rank) && (cards[1].rank == cards[2].rank) && (cards[0].rank == cards[2].rank) {
-            game.playingCards[game.indicesOfChosenCards[0]].number = true
-            game.playingCards[game.indicesOfChosenCards[1]].number = true
-            game.playingCards[game.indicesOfChosenCards[2]].number = true
-        }
-        else if cards[0].rank == cards[1].rank {
-            game.playingCards[game.indicesOfChosenCards[0]].number = true
-            game.playingCards[game.indicesOfChosenCards[1]].number = true
-        }
-        else if cards[1].rank == cards[2].rank {
-            game.playingCards[game.indicesOfChosenCards[1]].number = true
-            game.playingCards[game.indicesOfChosenCards[2]].number = true
-        }
-        else if cards[0].rank == cards[2].rank {
-            game.playingCards[game.indicesOfChosenCards[0]].number = true
-            game.playingCards[game.indicesOfChosenCards[2]].number = true
-        } 
+        colorSetting(param0: cards[0].color,param1: cards[1].color, param2: cards[2].color)
+        rankSetting(param0: cards[0].rank, param1: cards[1].rank, param2: cards[2].rank)
+        contentSetting(param0: cards[0].content, param1: cards[1].content, param2: cards[2].content)
+        shapeSetting(param0: cards[0].shape, param1: cards[1].shape, param2: cards[2].shape)
         game.matchCards(indexOf4thCard: forIndex)
         updateView()
     }
