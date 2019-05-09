@@ -25,6 +25,9 @@
                                     <constraint firstAttribute="width" secondItem="o9W-1C-SeO" secondAttribute="height" multiplier="5:8" id="AaX-AC-dWs"/>
                                     <constraint firstAttribute="width" priority="750" constant="800" id="HZp-dT-t8k"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isFaceUp" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.80915361670466579" blue="0.11101321730486913" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
