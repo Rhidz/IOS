@@ -17,14 +17,14 @@ struct SetGame {
             deck += [card]
         }
     }
-   mutating func drawModelCard() -> Card {
-    var c: Card?
+   mutating func drawModelCard() -> Card? {
+  
     if deck.isEmpty {
-        c = nil
+        return nil
     }else{
-        c = deck.removeFirst()
+        return deck.removeFirst()
     }
-    return c ?? Card()
+    
     }
  
     mutating func touchCard(chosenCard: Int) -> Int? {
