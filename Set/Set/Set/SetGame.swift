@@ -5,6 +5,7 @@
 
 /* Model */
 import Foundation
+
 struct SetGame {
     var deck = [Card]()
     var chosenCards = 0
@@ -17,14 +18,14 @@ struct SetGame {
             deck += [card]
         }
     }
-   mutating func drawModelCard() -> Card? {
-  
+   mutating func drawModelCard() -> Card {
+    var c: Card?
     if deck.isEmpty {
-        return nil
+        c = nil
     }else{
-        return deck.removeFirst()
+        c = deck.removeFirst()
     }
-    
+    return c ?? Card()
     }
  
     mutating func touchCard(chosenCard: Int) -> Int? {
@@ -57,6 +58,7 @@ struct SetGame {
         }
      return index
     }
+    
     mutating func matchCards(indexOf4thCard: Int) {
         var matchCount = [0,0,0,0]
         var matchFound = false
@@ -78,7 +80,7 @@ struct SetGame {
             }
            
         }
-         print(matchCount)
+        
       for i in matchCount.indices {
             if i == 0 {
                 if (matchCount[i] == 3) && (matchCount[i+1] == 0 || matchCount[i+1] == 3) && (matchCount[i+2] == 0 || matchCount[i+2] == 3) &&  (matchCount[i+3] == 0 || matchCount[i+3] == 3) {

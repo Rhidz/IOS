@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  AnimatedSets
+//  TestAnimatedSetCards
 //
-//  Created by Ishrat Rhidita on 30/5/19.
+//  Created by Ishrat Rhidita on 23/6/19.
 //  Copyright © 2019 Ishrat Rhidita. All rights reserved.
 //
 

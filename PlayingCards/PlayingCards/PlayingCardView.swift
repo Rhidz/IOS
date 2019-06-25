@@ -36,10 +36,10 @@ class PlayingCardView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         addSubview(label)
-        
         return label
     }
-    private func configureCornerLabel(_ label: UILabel) {
+    
+     private func configureCornerLabel(_ label: UILabel) {
         label.attributedText = cornerString
         label.frame.size = CGSize.zero
         label.sizeToFit()

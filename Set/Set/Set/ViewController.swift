@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         }
         
     }
-    var cardTitles = [Card:SetCard]()
+    var cardTitles = [Card:SetCard]() /* A dictionary for where the key is the Card and the value for that is a SetCard */
     var deck = CardDeck()
     var game = SetGame()
     /* this should be same as array for playing cards */

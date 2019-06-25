@@ -1,8 +1,8 @@
 //
 //  ViewController.swift
-//  AnimatedSets
+//  TestAnimatedSetCards
 //
-//  Created by Ishrat Rhidita on 30/5/19.
+//  Created by Ishrat Rhidita on 23/6/19.
 //  Copyright © 2019 Ishrat Rhidita. All rights reserved.
 //
 
@@ -14,6 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    
+
+
 }
 
