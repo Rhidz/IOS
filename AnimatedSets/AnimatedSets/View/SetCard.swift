@@ -8,11 +8,11 @@ struct SetCard {
     var rank: Number
     
     enum Shape: String {
-        case triangle
-        case sqaure
-        case circle
+        case oval
+        case squiggle
+        case diamonds
         case emoji
-        static var allShape = [Shape.triangle, .sqaure, .circle]
+        static var allShape = [Shape.oval, .squiggle, .diamonds]
     }
     
     enum Color: String {

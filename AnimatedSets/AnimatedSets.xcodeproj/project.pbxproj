@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B610D0BC22BE754100DF342D /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B610D0BB22BE754100DF342D /* SetCard.swift */; };
+		B63E04C422C740B8002D23C5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63E04C322C740B8002D23C5 /* Card.swift */; };
+		B63E04C722C7419C002D23C5 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63E04C622C7419C002D23C5 /* SetGame.swift */; };
 		B6C917EB22A0289900A8CEF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C917EA22A0289900A8CEF9 /* AppDelegate.swift */; };
 		B6C917ED22A0289900A8CEF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C917EC22A0289900A8CEF9 /* ViewController.swift */; };
 		B6C917F022A0289900A8CEF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C917EE22A0289900A8CEF9 /* Main.storyboard */; };
@@ -20,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		B610D0BB22BE754100DF342D /* SetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCard.swift; sourceTree = "<group>"; };
+		B63E04C322C740B8002D23C5 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		B63E04C622C7419C002D23C5 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		B6C917E722A0289900A8CEF9 /* AnimatedSets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimatedSets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6C917EA22A0289900A8CEF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6C917EC22A0289900A8CEF9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +47,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B63E04C022C73A5E002D23C5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B6C917FC22A028BF00A8CEF9 /* SetView.swift */,
+				B610D0BB22BE754100DF342D /* SetCard.swift */,
+				B6ED634922AD500B007074DB /* Grid.swift */,
+				B6C917FE22A0294700A8CEF9 /* GridView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B63E04C522C7416D002D23C5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B63E04C622C7419C002D23C5 /* SetGame.swift */,
+				B63E04C322C740B8002D23C5 /* Card.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B63E04C822C74284002D23C5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B6C917EC22A0289900A8CEF9 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B63E04C922C7429F002D23C5 /* SomeStuffs */ = {
+			isa = PBXGroup;
+			children = (
+				B6C917EA22A0289900A8CEF9 /* AppDelegate.swift */,
+				B6C917F322A0289A00A8CEF9 /* LaunchScreen.storyboard */,
+			);
+			path = SomeStuffs;
+			sourceTree = "<group>";
+		};
 		B6C917DE22A0289900A8CEF9 = {
 			isa = PBXGroup;
 			children = (
@@ -62,16 +103,13 @@
 		B6C917E922A0289900A8CEF9 /* AnimatedSets */ = {
 			isa = PBXGroup;
 			children = (
-				B6C917EA22A0289900A8CEF9 /* AppDelegate.swift */,
-				B6C917EC22A0289900A8CEF9 /* ViewController.swift */,
-				B6C917FC22A028BF00A8CEF9 /* SetView.swift */,
-				B610D0BB22BE754100DF342D /* SetCard.swift */,
-				B6ED634922AD500B007074DB /* Grid.swift */,
-				B6C917FE22A0294700A8CEF9 /* GridView.swift */,
+				B6C917F622A0289A00A8CEF9 /* Info.plist */,
+				B63E04C822C74284002D23C5 /* Controller */,
+				B63E04C522C7416D002D23C5 /* Model */,
+				B63E04C922C7429F002D23C5 /* SomeStuffs */,
+				B63E04C022C73A5E002D23C5 /* View */,
 				B6C917EE22A0289900A8CEF9 /* Main.storyboard */,
 				B6C917F122A0289A00A8CEF9 /* Assets.xcassets */,
-				B6C917F322A0289A00A8CEF9 /* LaunchScreen.storyboard */,
-				B6C917F622A0289A00A8CEF9 /* Info.plist */,
 			);
 			path = AnimatedSets;
 			sourceTree = "<group>";
@@ -153,6 +191,8 @@
 				B6C917FF22A0294700A8CEF9 /* GridView.swift in Sources */,
 				B6ED634A22AD500B007074DB /* Grid.swift in Sources */,
 				B6C917EB22A0289900A8CEF9 /* AppDelegate.swift in Sources */,
+				B63E04C722C7419C002D23C5 /* SetGame.swift in Sources */,
+				B63E04C422C740B8002D23C5 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

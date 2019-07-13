@@ -12,8 +12,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        for _ in 1...12 {
+            let card = game.drawModelCard()
+            game.deck.append(card)
+        }
+        
     }
-    
+   lazy var game = SetGame()
+
 }
 

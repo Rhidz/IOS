@@ -12,6 +12,7 @@ struct CardDeck {
 
     private(set) var cards = [SetCard]()
     var emptySetCard = SetCard(shape: .emoji, color: .blue, content: .different, rank: .four)
+    
     init() {
         for shape in SetCard.Shape.allShape {
             for color in SetCard.Color.allColor {
@@ -24,7 +25,8 @@ struct CardDeck {
         }
         cards.shuffle()
     }
-   mutating func drawCard() -> SetCard {
+   
+    mutating func drawCard() -> SetCard {
     var card: SetCard
     if !cards.isEmpty{
         let randomIndex = cards.count.arc4Random

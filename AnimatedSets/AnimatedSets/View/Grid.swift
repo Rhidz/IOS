@@ -145,17 +145,17 @@ struct Grid
             dy: (frame.size.height - boundingSize.height) / 2
         )
         var origin = frame.origin
-        origin.x += offset.dx - 2.5
+        origin.x += offset.dx + 2.0
         origin.y += offset.dy
         
         if cellCount > 0 {
             for _ in 0..<cellCount {
                 cellFrames.append(CGRect(origin: origin, size: cellSize))
                 
-                origin.x += cellSize.width + 3.0
+                origin.x += cellSize.width
                 if round(origin.x) > round(frame.maxX - cellSize.width) {
-                    origin.x = frame.origin.x + offset.dx - 2.5
-                    origin.y += cellSize.height + 3.5
+                    origin.x = frame.origin.x + offset.dx + 2.0
+                    origin.y += cellSize.height 
                 }
             }
         }
