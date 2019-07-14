@@ -1,7 +1,4 @@
-
 import Foundation
-import Foundation
-
 struct Card: Hashable {
     
     static func == (lhs: Card, rhs: Card) -> Bool {
