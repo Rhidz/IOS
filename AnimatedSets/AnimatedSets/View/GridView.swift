@@ -71,4 +71,23 @@ class GridView: UIView {
          color.setFill()
          roundedRect.fill()
     }
+     func addCardsOnView() {
+        for _ in 1...3 {
+            let card = SetView()
+            let contentsToBeDrawn = deckOfCards.removeFirst()
+            card.combinationOnCard.shape = contentsToBeDrawn.shape
+            card.combinationOnCard.color = contentsToBeDrawn.color
+            card.combinationOnCard.content = contentsToBeDrawn.content
+            card.combinationOnCard.rank = contentsToBeDrawn.rank
+            /* print(contentsToBeDrawn.color) */
+            let tapGestureRecognizer = UITapGestureRecognizer(target: card, action: #selector(card.didTap(sender:)))
+            card.isUserInteractionEnabled = true
+            card.addGestureRecognizer(tapGestureRecognizer)
+            addSubview(card)
+            listOfSetCard.append(card)
+        }
+        cardsOnScreen += 3
+        grid = Grid(layout: Grid.Layout.dimensions(rowCount: 11, columnCount: 4), frame: bounds)
+        setNeedsLayout()
+    }
 }

@@ -384,7 +384,7 @@ class SetView: UIView {
             setNeedsDisplay()
             self.isSelected = false
         }
-        
+       
     default:
         break
     }

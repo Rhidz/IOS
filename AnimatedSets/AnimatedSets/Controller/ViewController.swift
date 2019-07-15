@@ -12,14 +12,26 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         for _ in 1...12 {
-            if let card = game.drawModelCard() {
-            game.playingCards.append(card)
+            if let card = game.drawModelCard(){
+                 game.playingCards.append(card)
+            }
+           
         }
-        
-    }
+      
     }
     lazy var game = SetGame()
    
+    @IBOutlet weak var dealCards: GridView!{
+        didSet {
+            let swipe = UISwipeGestureRecognizer(target: self, action: #selector(addCards))
+            swipe.direction = .up
+            dealCards.addGestureRecognizer(swipe)
+        }
+    }
     
+    @objc func addCards() {
+        
+       dealCards.addCardsOnView()
+}
 }
 
