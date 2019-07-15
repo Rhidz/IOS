@@ -45,9 +45,14 @@ class GridView: UIView {
             card.combinationOnCard.content = contentsToBeDrawn.content
             card.combinationOnCard.rank = contentsToBeDrawn.rank
             /* print(contentsToBeDrawn.color) */
+            let tapGestureRecognizer = UITapGestureRecognizer(target: card, action: #selector(card.didTap(sender:)))
+            card.isUserInteractionEnabled = true
+            card.addGestureRecognizer(tapGestureRecognizer)
             addSubview(card)
             cards.append(card)
         }
+        
+        
         return cards
     }
   override func layoutSubviews() {
@@ -57,7 +62,6 @@ class GridView: UIView {
             if let rect = grid[index] {
                 card.frame = rect.insetBy(dx: 2.5, dy: 2.5)
                 card.frame.origin = rect.origin
-                print(card.frame.origin)
             }
         }
     }

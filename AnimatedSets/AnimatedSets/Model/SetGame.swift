@@ -16,14 +16,14 @@ struct SetGame {
         }
     }
     
-    mutating func drawModelCard() -> Card {
+    mutating func drawModelCard() -> Card? {
         var c: Card?
         if deck.isEmpty {
             c = nil
         }else{
             c = deck.removeFirst()
         }
-        return c ?? Card()
+        return c
     }
     
     mutating func touchCard(chosenCard: Int) -> Int? {
@@ -139,7 +139,7 @@ struct SetGame {
         var lisOfIndexes = [Int]()
         if indicesofMatchedCards.count > 0 {
             for i in 0...2 {
-                playingCards[indicesofMatchedCards[i]] = drawModelCard()
+                playingCards[indicesofMatchedCards[i]] = drawModelCard()!
                 lisOfIndexes.append(indicesofMatchedCards[i])
                 
             }

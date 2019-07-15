@@ -13,7 +13,7 @@ class SetView: UIView {
     let offset: CGFloat = 3.25
     var isLineAtStartingPoint = false
     var isLineAtEndingPoint = false
-    
+    lazy var color : UIColor = set(color: UIColor.white)
   
 /* I never want to change the value of this variable */
     static var identifier: Int = 0
@@ -37,7 +37,8 @@ class SetView: UIView {
   
     override func draw(_ rect: CGRect) {
         let rect = UIBezierPath(rect: bounds)
-        fillBoundingRect(inRect: rect, color: UIColor.white)
+        color.setFill()
+        rect.fill()
         var path = UIBezierPath()
         var color = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         switch combinationOnCard.color {
@@ -239,7 +240,7 @@ class SetView: UIView {
         case SetCard.Number.one:
             startingPoint = CGPoint(x: rect.minX + widthForEachShape * 1.25, y: rect.minY)
             endingPoint = CGPoint(x: rect.minX + widthForEachShape * 1.30, y: rect.maxY)
-            controlPoint1 = CGPoint(x: rect.minX + widthForEachShape * 1.75, y: rect.minY + 0.40 * rect.height)
+            controlPoint1 = CGPoint(x: rect.minX + widthForEachShape * 1.60, y: rect.minY + 0.40 * rect.height)
             controlPoint2 = CGPoint(x: rect.minX + widthForEachShape, y: rect.maxY - (0.20 * rect.height))
             
             path.move(to: startingPoint)
@@ -247,10 +248,10 @@ class SetView: UIView {
             
             startingPoint = CGPoint(x: rect.minX + widthForEachShape * 1.65, y: rect.minY)
             endingPoint = CGPoint(x: rect.minX + widthForEachShape * 1.70, y: rect.maxY)
-            controlPoint2 = CGPoint(x: rect.minX + widthForEachShape * 2.15 , y: rect.minY + 0.40 * rect.height)
-            controlPoint1 = CGPoint(x: rect.minX + 1.45 * widthForEachShape, y: rect.maxY - (0.20 * rect.height))
-            
+            controlPoint2 = CGPoint(x: rect.minX + widthForEachShape * 2 , y: rect.minY + 0.40 * rect.height)
+            controlPoint1 = CGPoint(x: rect.minX + 1.30 * widthForEachShape, y: rect.maxY - (0.20 * rect.height))
             path.addLine(to: endingPoint)
+            
             path.addCurve(to: startingPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
             path.close()
             path.addClip()
@@ -363,16 +364,27 @@ class SetView: UIView {
             }}
         
         }
-    private func fillBoundingRect(inRect: UIBezierPath, color: UIColor){
-        color.setFill()
-        inRect.fill()
+    private func set(color: UIColor) -> UIColor {
+        return color
     }
-    @objc func didTap(sender: UITapGestureRecognizer) {
     
+    @objc func didTap(sender: UITapGestureRecognizer) {
     switch sender.state {
     case .ended:
-        let rect = UIBezierPath(rect: bounds)
-        fillBoundingRect(inRect: rect, color: UIColor.gray)
+        var prefferedColor : UIColor
+        if !self.isSelected {
+            prefferedColor = #colorLiteral(red: 0.9377797246, green: 0.7522887588, blue: 0.7926915288, alpha: 1)
+            color = set(color: prefferedColor)
+            setNeedsDisplay()
+            self.isSelected = true
+        }
+        else {
+            prefferedColor = UIColor.white
+            color = set(color: prefferedColor)
+            setNeedsDisplay()
+            self.isSelected = false
+        }
+        
     default:
         break
     }
