@@ -1,10 +1,12 @@
 //
 //  SetView.swift
-//  AnimatedSets
+//  GraphicalSets
 //
-//  Created by Ishrat Rhidita on 30/5/19.
+//  Created by Ishrat Rhidita on 20/7/19.
 //  Copyright © 2019 Ishrat Rhidita. All rights reserved.
 //
+//
+
 
 import UIKit
 
@@ -14,8 +16,11 @@ class SetView: UIView {
     var isLineAtStartingPoint = false
     var isLineAtEndingPoint = false
     lazy var color : UIColor = set(color: UIColor.white)
-  
-/* I never want to change the value of this variable */
+    var isSelected = false
+    var isMatched = false
+    
+    var delegate : SetViewDelegate!
+    /* I never want to change the value of this variable */
     static var identifierFactory: Int = 0
     
     lazy var identifier : Int = incrementIdentifier()
@@ -31,21 +36,24 @@ class SetView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-   }
-     func incrementIdentifier() -> Int {
+    }
+    func incrementIdentifier() -> Int {
         SetView.identifierFactory += 1
         return SetView.identifierFactory
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-  
+    
     override func draw(_ rect: CGRect) {
         let rect = UIBezierPath(rect: bounds)
+        
+        
         color.setFill()
         rect.fill()
         var path = UIBezierPath()
-        var color = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+       
         switch combinationOnCard.color {
         case SetCard.Color.green:
             color = #colorLiteral(red: 0, green: 0.6342709661, blue: 0.3612936139, alpha: 1)
@@ -60,17 +68,17 @@ class SetView: UIView {
             break
         }
         switch combinationOnCard.shape {
-          case SetCard.Shape.squiggle:
-           path = makeSquiggle(in: bounds)
-          case SetCard.Shape.oval:
-           path = makeOvals(in: bounds)
-          case SetCard.Shape.diamonds:
-           path = makeDiamonds(in: bounds)
-          default:
+        case SetCard.Shape.squiggle:
+            path = makeSquiggle(in: bounds)
+        case SetCard.Shape.oval:
+            path = makeOvals(in: bounds)
+        case SetCard.Shape.diamonds:
+            path = makeDiamonds(in: bounds)
+        default:
             break
         }
         switch combinationOnCard.content {
-         case SetCard.Content.filled:
+        case SetCard.Content.filled:
             color.setFill()
             path.fill()
         case SetCard.Content.outlined:
@@ -81,16 +89,16 @@ class SetView: UIView {
             path.lineWidth = 1.20
             path.stroke()
             stride()
-         default:
+        default:
             break
         }
-     }
-     private func makeDiamonds(in rectangle: CGRect) -> UIBezierPath {
+    }
+    private func makeDiamonds(in rectangle: CGRect) -> UIBezierPath {
         let path = UIBezierPath()
         let rect = rectangle.insetBy(dx: 0.0, dy: (rectangle.height/4))
         var topAndBottomValueForX : CGFloat = 0.0
         switch combinationOnCard.rank {
-         case SetCard.Number.one:
+        case SetCard.Number.one:
             topAndBottomValueForX = rect.minX + widthForEachShape  * 1.5
             path.move(to: CGPoint(x: topAndBottomValueForX, y: rect.minY))
             path.addLine(to: CGPoint(x: rect.minX + widthForEachShape * 1.15 , y: rect.midY))
@@ -98,7 +106,7 @@ class SetView: UIView {
             path.addLine(to: CGPoint(x: rect.minX + widthForEachShape * 1.85, y: rect.midY))
             path.close()
             path.addClip()
-         case SetCard.Number.two:
+        case SetCard.Number.two:
             topAndBottomValueForX = rect.minX + widthForEachShape
             path.move(to: CGPoint(x: topAndBottomValueForX, y: rect.minY))
             path.addLine(to: CGPoint(x: rect.minX + widthForEachShape * 0.65, y: rect.midY))
@@ -115,7 +123,7 @@ class SetView: UIView {
             path.close()
             
             path.addClip()
-        
+            
         case SetCard.Number.three:
             topAndBottomValueForX = rect.minX + (widthForEachShape * 0.5)
             
@@ -143,7 +151,7 @@ class SetView: UIView {
         default:
             break
         }
-      return path
+        return path
     }
     
     private func makeSquiggle(in rectangle: CGRect) -> UIBezierPath {
@@ -170,10 +178,10 @@ class SetView: UIView {
             path.close()
             
             /* second squiggle */
-             startingPoint = CGPoint(x: rect.minX + widthForEachShape * 1.25, y: rect.minY)
-             endingPoint = CGPoint(x: rect.minX + widthForEachShape * 1.30, y: rect.maxY)
-             controlPoint1 = CGPoint(x: rect.minX + widthForEachShape * 1.60, y: rect.minY + 0.40 * rect.height)
-             controlPoint2 = CGPoint(x: rect.minX + widthForEachShape, y: rect.maxY - (0.20 * rect.height))
+            startingPoint = CGPoint(x: rect.minX + widthForEachShape * 1.25, y: rect.minY)
+            endingPoint = CGPoint(x: rect.minX + widthForEachShape * 1.30, y: rect.maxY)
+            controlPoint1 = CGPoint(x: rect.minX + widthForEachShape * 1.60, y: rect.minY + 0.40 * rect.height)
+            controlPoint2 = CGPoint(x: rect.minX + widthForEachShape, y: rect.maxY - (0.20 * rect.height))
             
             path.move(to: startingPoint)
             path.addCurve(to: endingPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
@@ -187,7 +195,7 @@ class SetView: UIView {
             path.addCurve(to: startingPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
             path.close()
             
-          /* third squiggle */
+            /* third squiggle */
             startingPoint = CGPoint(x: rect.minX + widthForEachShape * 2.25, y: rect.minY)
             endingPoint = CGPoint(x: rect.minX + widthForEachShape * 2.30, y: rect.maxY)
             controlPoint1 = CGPoint(x: rect.minX + widthForEachShape * 2.60, y: rect.minY + 0.40 * rect.height)
@@ -260,10 +268,10 @@ class SetView: UIView {
             path.addClip()
             
         default:
-        break
-       
-    }
-    return path
+            break
+            
+        }
+        return path
     }
     
     private func makeOvals(in rectangle: CGRect) -> UIBezierPath {
@@ -280,7 +288,7 @@ class SetView: UIView {
             path.addArc(withCenter: CGPoint(x: 1.50 * widthForEachShape + rect.minX, y: rect.minY + 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(0).toRadians(), endAngle: CGFloat(180).toRadians(), clockwise: false)
             path.addClip()
         case SetCard.Number.three:
-             /* firstPath */
+            /* firstPath */
             path.move(to: CGPoint(x: rect.minX + 0.15 * widthForEachShape, y: rect.minY + 0.35 * widthForEachShape))
             path.addLine(to: CGPoint(x: rect.minX + 0.15 * widthForEachShape, y: 0.35 * widthForEachShape + rect.minY))
             path.addArc(withCenter: CGPoint(x: 0.50 * widthForEachShape + rect.minX, y: rect.maxY - 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(180).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: false)
@@ -293,8 +301,8 @@ class SetView: UIView {
             path.addArc(withCenter: CGPoint(x: 1.50 * widthForEachShape, y: rect.maxY - 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(180).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: false)
             path.addLine(to: CGPoint(x: 1.85 * widthForEachShape + rect.minX, y: rect.minY + 0.35 * widthForEachShape))
             path.addArc(withCenter: CGPoint(x: 1.50 * widthForEachShape + rect.minX, y: rect.minY + 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(0).toRadians(), endAngle: CGFloat(180).toRadians(), clockwise: false)
-
-       /* thirdPath */
+            
+            /* thirdPath */
             path.move(to: CGPoint(x: rect.minX + 2.15 * widthForEachShape, y: rect.minY + 0.35 * widthForEachShape))
             path.addLine(to: CGPoint(x: rect.minX + 2.15 * widthForEachShape, y: 0.35 * widthForEachShape + rect.minY))
             path.addArc(withCenter: CGPoint(x: 2.50 * widthForEachShape, y: rect.maxY - 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(180).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: false)
@@ -302,26 +310,26 @@ class SetView: UIView {
             path.addArc(withCenter: CGPoint(x: 2.50 * widthForEachShape + rect.minX, y: rect.minY + 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(0).toRadians(), endAngle: CGFloat(180).toRadians(), clockwise: false)
             
             path.addClip()
-
-           case SetCard.Number.two:
+            
+        case SetCard.Number.two:
             /* firstOval */
-             path.move(to: CGPoint(x: rect.minX + 0.65 * widthForEachShape, y: rect.minY + 0.35 * widthForEachShape))
-             path.addLine(to: CGPoint(x: rect.minX + 0.65 * widthForEachShape, y: 0.35 * widthForEachShape + rect.minY))
-             path.addArc(withCenter: CGPoint(x:  widthForEachShape + rect.minX, y: rect.maxY - 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(180).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: false)
-             path.addLine(to: CGPoint(x: 1.35 * widthForEachShape + rect.minX, y:rect.minY + 0.35 * widthForEachShape))
-             path.addArc(withCenter: CGPoint(x:  widthForEachShape + rect.minX, y: rect.minY + 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(0).toRadians(), endAngle: CGFloat(180).toRadians(), clockwise: false)
+            path.move(to: CGPoint(x: rect.minX + 0.65 * widthForEachShape, y: rect.minY + 0.35 * widthForEachShape))
+            path.addLine(to: CGPoint(x: rect.minX + 0.65 * widthForEachShape, y: 0.35 * widthForEachShape + rect.minY))
+            path.addArc(withCenter: CGPoint(x:  widthForEachShape + rect.minX, y: rect.maxY - 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(180).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: false)
+            path.addLine(to: CGPoint(x: 1.35 * widthForEachShape + rect.minX, y:rect.minY + 0.35 * widthForEachShape))
+            path.addArc(withCenter: CGPoint(x:  widthForEachShape + rect.minX, y: rect.minY + 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(0).toRadians(), endAngle: CGFloat(180).toRadians(), clockwise: false)
             /* secondOval */
-             path.move(to: CGPoint(x: rect.minX + 1.65 * widthForEachShape, y: rect.minY + 0.35 * widthForEachShape))
-             path.addLine(to: CGPoint(x: rect.minX + 1.65 * widthForEachShape, y: 0.35 * widthForEachShape + rect.minY))
-             path.addArc(withCenter: CGPoint(x: 2.0 * widthForEachShape + rect.minX, y: rect.maxY - 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(180).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: false)
-             path.addLine(to: CGPoint(x: 2.35 * widthForEachShape + rect.minX, y:rect.minY + 0.35 * widthForEachShape))
-             path.addArc(withCenter: CGPoint(x: 2.0 * widthForEachShape + rect.minX, y: rect.minY + 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(0).toRadians(), endAngle: CGFloat(180).toRadians(), clockwise: false)
+            path.move(to: CGPoint(x: rect.minX + 1.65 * widthForEachShape, y: rect.minY + 0.35 * widthForEachShape))
+            path.addLine(to: CGPoint(x: rect.minX + 1.65 * widthForEachShape, y: 0.35 * widthForEachShape + rect.minY))
+            path.addArc(withCenter: CGPoint(x: 2.0 * widthForEachShape + rect.minX, y: rect.maxY - 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(180).toRadians(), endAngle: CGFloat(0).toRadians(), clockwise: false)
+            path.addLine(to: CGPoint(x: 2.35 * widthForEachShape + rect.minX, y:rect.minY + 0.35 * widthForEachShape))
+            path.addArc(withCenter: CGPoint(x: 2.0 * widthForEachShape + rect.minX, y: rect.minY + 0.35 * widthForEachShape), radius: radius, startAngle: CGFloat(0).toRadians(), endAngle: CGFloat(180).toRadians(), clockwise: false)
             path.addClip()
             
         default:
             break
         }
-       return path
+        return path
         
     }
     private func stride() {
@@ -329,7 +337,7 @@ class SetView: UIView {
         var rect : CGRect = frame
         switch combinationOnCard.rank {
         case SetCard.Number.one:
-             rect = bounds.insetBy(dx: (bounds.width / 3), dy: (bounds.height / 4))
+            rect = bounds.insetBy(dx: (bounds.width / 3), dy: (bounds.height / 4))
         case SetCard.Number.two:
             rect = bounds.insetBy(dx: frame.width / 6, dy: (bounds.height/4))
         case SetCard.Number.three:
@@ -352,25 +360,25 @@ class SetView: UIView {
             }
             else if isLineAtEndingPoint {
                 path.move(to: CGPoint(x: endingPointForX, y: y))
-               path.addLine(to: CGPoint(x: startingPointForX, y: y))
+                path.addLine(to: CGPoint(x: startingPointForX, y: y))
                 setLineWidthAndStrokeColor(path: path)
                 isLineAtEndingPoint = false
                 isLineAtStartingPoint = true
                 y += offset
             }}
         
-        }
+    }
     private func set(color: UIColor) -> UIColor {
         return color
     }
-    
+   
     @objc func didTap(sender: UITapGestureRecognizer) {
         
-        let isSelected = ViewController().touchCard(number: identifier)
+        let status = delegate.identifier(ofCard: identifier)
         switch sender.state {
         case .ended:
             var prefferedColor : UIColor
-            if isSelected {
+            if status  {
                 prefferedColor = #colorLiteral(red: 0.9377797246, green: 0.7522887588, blue: 0.7926915288, alpha: 1)
                 color = set(color: prefferedColor)
                 setNeedsDisplay()
@@ -387,6 +395,7 @@ class SetView: UIView {
         
     }
     
+   
     private func setLineWidthAndStrokeColor(path: UIBezierPath){
         path.lineWidth = 0.60
         path.stroke()
@@ -395,11 +404,12 @@ class SetView: UIView {
     private func calculateWidth(for cardsIn: CGRect)-> CGFloat {
         return  (cardsIn.width / 3.00)
     }
-
+    
 }
 extension CGFloat {
     func toRadians() -> CGFloat {
         return self * CGFloat(CGFloat.pi) / 180.0
     }
 }
+
 

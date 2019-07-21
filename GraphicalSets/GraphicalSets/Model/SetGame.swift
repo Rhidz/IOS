@@ -1,3 +1,11 @@
+//
+//  SetGame.swift
+//  GraphicalSets
+//
+//  Created by Ishrat Rhidita on 20/7/19.
+//  Copyright © 2019 Ishrat Rhidita. All rights reserved.
+//
+
 
 import Foundation
 
@@ -131,8 +139,8 @@ struct SetGame {
                     playingCards[index].isSelected = false
                 }
             }
-         }
-      }
+        }
+    }
     mutating func dealCards()-> [Int] {
         var lisOfIndexes = [Int]()
         if indicesofMatchedCards.count > 0 {

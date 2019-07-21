@@ -7,10 +7,10 @@ class GridView: UIView {
     
    lazy var grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 128.0, height: 110.0)), frame: CGRect(origin: CGPoint(x: bounds.minX, y: bounds.minY), size: CGSize(width: bounds.width, height: bounds.height)))
    
-    lazy var listOfSetCard = createSetCards()
+    private(set) lazy var listOfSetCards = createSetCards()
     
-    private func createDeck() -> [SetCard] {
-        var deck = [SetCard]()
+    private func createDeck() -> [SetCard]{
+         var deck = [SetCard]()
         for shape in SetCard.Shape.allShape {
             for color in SetCard.Color.allColor {
                 for content in SetCard.Content.allContent {
@@ -25,17 +25,8 @@ class GridView: UIView {
     }
     @IBInspectable
     var cardsOnScreen:Int = 12 { didSet { setNeedsLayout() } }
-    
-    var trackOfCards: Int {
-        get {
-            return cardsOnScreen
-        }
-        set(newValue) {
-            self.trackOfCards = newValue
-        }
-    }
-    
-    private func createSetCards() -> [SetView] {
+   
+     private func createSetCards() -> [SetView]{
         var cards = [SetView]()
         for _ in 0..<cardsOnScreen {
             let card = SetView()
@@ -44,23 +35,23 @@ class GridView: UIView {
             card.combinationOnCard.color = contentsToBeDrawn.color
             card.combinationOnCard.content = contentsToBeDrawn.content
             card.combinationOnCard.rank = contentsToBeDrawn.rank
-            /* print(contentsToBeDrawn.color) */
+            print(card.identifier)
             let tapGestureRecognizer = UITapGestureRecognizer(target: card, action: #selector(card.didTap(sender:)))
             card.isUserInteractionEnabled = true
             card.addGestureRecognizer(tapGestureRecognizer)
             addSubview(card)
             cards.append(card)
+            print("I want to know if I am here")
+            
         }
-        
-        
         return cards
     }
   override func layoutSubviews() {
         super.layoutSubviews()
-        for index in listOfSetCard.indices {
-            let card = listOfSetCard[index]
-            if let rect = grid[index] {
-                card.frame = rect.insetBy(dx: 2.5, dy: 2.5)
+        for index in listOfSetCards.indices {
+              let card = listOfSetCards[index]
+               if let rect = grid[index] {
+                card.frame = rect.insetBy(dx: 1.5, dy: 1.5)
                 card.frame.origin = rect.origin
             }
         }
@@ -79,15 +70,22 @@ class GridView: UIView {
             card.combinationOnCard.color = contentsToBeDrawn.color
             card.combinationOnCard.content = contentsToBeDrawn.content
             card.combinationOnCard.rank = contentsToBeDrawn.rank
-            /* print(contentsToBeDrawn.color) */
             let tapGestureRecognizer = UITapGestureRecognizer(target: card, action: #selector(card.didTap(sender:)))
             card.isUserInteractionEnabled = true
             card.addGestureRecognizer(tapGestureRecognizer)
             addSubview(card)
-            listOfSetCard.append(card)
+            listOfSetCards.append(card)
         }
         cardsOnScreen += 3
-        grid = Grid(layout: Grid.Layout.dimensions(rowCount: 11, columnCount: 4), frame: bounds)
+        if cardsOnScreen <= 24 {
+        grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 122.0, height: 100.0)), frame: CGRect(origin: CGPoint(x: bounds.minX, y: bounds.minY), size: CGSize(width: bounds.width, height: bounds.height)))
         setNeedsLayout()
+        }
+        else {
+           /* grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 115.0, height: 70.0)), frame: CGRect(origin: CGPoint(x: bounds.minX, y: bounds.minY), size: CGSize(width: bounds.width, height: bounds.height)))*/
+            grid = Grid(layout: Grid.Layout.dimensions(rowCount: 12, columnCount: 3), frame: bounds)
+            setNeedsDisplay()
+            setNeedsLayout()
+        }
     }
 }

@@ -1,4 +1,5 @@
 
+
 //
 //  Created by CS193p Instructor.
 //  Copyright © 2017 Stanford University. All rights reserved.
@@ -155,7 +156,7 @@ struct Grid
                 origin.x += cellSize.width
                 if round(origin.x) > round(frame.maxX - cellSize.width) {
                     origin.x = frame.origin.x + offset.dx
-                    origin.y += cellSize.height 
+                    origin.y += cellSize.height
                 }
             }
         }
@@ -197,5 +198,8 @@ private extension CGSize {
         return width * height
     }
 }
+
+
+
 
 

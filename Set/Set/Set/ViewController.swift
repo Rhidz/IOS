@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     var cardTitles = [Card:SetCard]() /* A dictionary for where the key is the Card and the value for that is a SetCard */
     var deck = CardDeck()
     var game = SetGame()
-    /* this should be same as array for playing cards */
+    /* this should be same as the array for playing cards */
     var testCards = [Card]()
     
     @IBOutlet weak var dealCards: UIButton! 
