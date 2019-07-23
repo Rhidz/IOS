@@ -48,6 +48,7 @@ class GridView: UIView {
     func updateView(atIndex: Int, isSelected: Bool, isMatched: Bool) {
         listOfSetCards[atIndex].isSelected = isSelected
         listOfSetCards[atIndex].isMatched = isMatched
+        
     }
 
 }

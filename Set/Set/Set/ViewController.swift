@@ -127,7 +127,7 @@ class ViewController: UIViewController {
                 button.layer.borderColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
                
             }
-            else if !card.isMatched{
+            else if !card.isMatched {
                 button.backgroundColor = #colorLiteral(red: 0.6064082384, green: 0.729287684, blue: 0.7931819558, alpha: 1)
                 button.layer.cornerRadius = 12.0
                 button.layer.borderWidth = 0

@@ -15,7 +15,7 @@ class SetView: UIView {
     let offset: CGFloat = 3.25
     var isLineAtStartingPoint = false
     var isLineAtEndingPoint = false
-    lazy var color : UIColor = set(color: UIColor.white)
+    lazy var pathColor : UIColor = set(color: UIColor.white)
     var isSelected = false
     var isMatched = false
     
@@ -47,12 +47,17 @@ class SetView: UIView {
     
     override func draw(_ rect: CGRect) {
         let rect = UIBezierPath(rect: bounds)
+        if isSelected && !isMatched {
+            pathColor = set(color: #colorLiteral(red: 0.9377797246, green: 0.7522887588, blue: 0.7926915288, alpha: 1))
+        }
+        else {
+            pathColor = set(color: UIColor.white)
+        }
         
-        
-        color.setFill()
+        pathColor.setFill()
         rect.fill()
         var path = UIBezierPath()
-        
+        var color = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
        
         switch combinationOnCard.color {
         case SetCard.Color.green:
@@ -373,28 +378,17 @@ class SetView: UIView {
     }
    
     @objc func didTap(sender: UITapGestureRecognizer) {
-        
-        let status = delegate.identifier(ofCard: identifier)
+        print(identifier)
+        delegate.identifier(ofCard: identifier)
         switch sender.state {
         case .ended:
-            var prefferedColor : UIColor
-            if status  {
-                prefferedColor = #colorLiteral(red: 0.9377797246, green: 0.7522887588, blue: 0.7926915288, alpha: 1)
-                color = set(color: prefferedColor)
-                setNeedsDisplay()
-                
-            }
-            else {
-                prefferedColor = UIColor.white
-                color = set(color: prefferedColor)
-                setNeedsDisplay()
-            }
+            setNeedsDisplay()
         default:
             break
         }
         
     }
-    
+   
    
     private func setLineWidthAndStrokeColor(path: UIBezierPath){
         path.lineWidth = 0.60

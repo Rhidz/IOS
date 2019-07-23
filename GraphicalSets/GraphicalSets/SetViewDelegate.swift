@@ -9,5 +9,5 @@
 import Foundation
 
 protocol SetViewDelegate {
-    func identifier(ofCard: Int) -> Bool
+    func identifier(ofCard: Int) 
 }

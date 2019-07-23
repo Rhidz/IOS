@@ -20,12 +20,13 @@ class ViewController: UIViewController {
         self.view.addSubview(gridView)
         createDeck()
         gridView.cardsOnScreen = 12
-        createSetCards()
+        createSetCards(ofAmount: gridView.cardsOnScreen)
         makeCards()
      }
        
      lazy var game = SetGame()
      let gridView = GridView()
+     var indices : [Int] = [0]
     
     var deckOfCards = [SetCard]()
  
@@ -52,8 +53,9 @@ class ViewController: UIViewController {
         
     }
     
-    private func createSetCards(){
-        for _ in 0..<gridView.cardsOnScreen {
+    private func createSetCards(ofAmount: Int){
+        
+       for i in 0..<ofAmount {
             let card = SetView()
             let contentsToBeDrawn = deckOfCards.removeFirst()
             card.combinationOnCard.shape = contentsToBeDrawn.shape
@@ -66,11 +68,18 @@ class ViewController: UIViewController {
             card.addGestureRecognizer(tapGestureRecognizer)
             card.delegate = self
             gridView.addSubview(card)
+           if  indices.count == 3 {
+            print(gridView.listOfSetCards[indices[i]])
+            gridView.listOfSetCards[indices[i]] = card
+           } else {
             gridView.listOfSetCards.append(card)
-            gridView.setNeedsLayout()
         }
-      
+        
+      gridView.setNeedsLayout()
+        }
+        
     }
+        
     @objc func addCards() {
         addCardsOnView()
     }
@@ -130,58 +139,56 @@ class ViewController: UIViewController {
         compareShape(card0: gridView.listOfSetCards[game.indicesOfChosenCards[0]], card1: gridView.listOfSetCards[game.indicesOfChosenCards[1]], card2: gridView.listOfSetCards[game.indicesOfChosenCards[2]])
         
         compareContent(card0: gridView.listOfSetCards[game.indicesOfChosenCards[0]], card1: gridView.listOfSetCards[game.indicesOfChosenCards[1]], card2: gridView.listOfSetCards[game.indicesOfChosenCards[2]])
+        game.matchCards(indexOf4thCard: forIndex)
+        updateView()
         
         
     }
    
-   private func updateView(forCardAt: Int) {
+   private func updateView() {
         for index in game.playingCards.indices {
-            if game.playingCards[index].isSelected && game.playingCards[index].isMatched {
-                gridView.updateView(atIndex: index, isSelected: true, isMatched: true)
+            if game.playingCards[index].isSelected && !game.playingCards[index].isMatched {
+                gridView.updateView(atIndex: index, isSelected: true, isMatched: false)
+                gridView.listOfSetCards[index].setNeedsDisplay()
+                /* need to change this */
                 
             }
-            else if game.playingCards[index].isSelected && !game.playingCards[index].isMatched {
-                gridView.updateView(atIndex: index, isSelected: true, isMatched: false)
+            else if game.playingCards[index].isSelected && game.playingCards[index].isMatched {
+                gridView.updateView(atIndex: index, isSelected: true, isMatched: true)
+                gridView.listOfSetCards[index].removeFromSuperview()
                 
             }
             else if !game.playingCards[index].isSelected && !game.playingCards[index].isMatched {
                 gridView.updateView(atIndex: index, isSelected: false, isMatched: false)
+                gridView.listOfSetCards[index].setNeedsDisplay()
             }
         }
     }
     
     func addCardsOnView() {
-        for _ in 1...3 {
-            let card = SetView()
-            let contentsToBeDrawn = deckOfCards.removeFirst()
-            card.combinationOnCard.shape = contentsToBeDrawn.shape
-            card.combinationOnCard.color = contentsToBeDrawn.color
-            card.combinationOnCard.content = contentsToBeDrawn.content
-            card.combinationOnCard.rank = contentsToBeDrawn.rank
-            let tapGestureRecognizer = UITapGestureRecognizer(target: card, action: #selector(card.didTap(sender:)))
-            card.isUserInteractionEnabled = true
-            card.addGestureRecognizer(tapGestureRecognizer)
-            gridView.addSubview(card)
-            gridView.listOfSetCards.append(card)
-        }
-        /*gridView.cardsOnScreen += 3
+        indices = game.dealCards()
+        print(indices)
+        createSetCards(ofAmount: 3)
+        gridView.cardsOnScreen += 3
         if gridView.cardsOnScreen <= 24 {
-            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 122.0, height: 100.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: bounds.width, height: bounds.height)))
-            setNeedsLayout()
+            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 122.0, height: 100.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
+            
+            gridView.setNeedsLayout()
         }
         else {
-            /* grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 115.0, height: 70.0)), frame: CGRect(origin: CGPoint(x: bounds.minX, y: bounds.minY), size: CGSize(width: bounds.width, height: bounds.height)))*/
-            grid = Grid(layout: Grid.Layout.dimensions(rowCount: 12, columnCount: 3), frame: bounds)
-            setNeedsDisplay()
-            setNeedsLayout()
+            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 126.0, height: 85.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
+            
+            gridView.setNeedsLayout()
         }
-    }*/
+        
+    }
+    
 }
 
-}
+
 extension ViewController: SetViewDelegate {
     
-    func identifier(ofCard: Int) -> Bool {
+    func identifier(ofCard: Int) {
         for index in game.playingCards.indices {
             if ofCard == game.playingCards[index].identifier {
                 
@@ -190,13 +197,13 @@ extension ViewController: SetViewDelegate {
                     
                 }
                 else {
-                    updateView(forCardAt: index)
+                    updateView()
                    
                 }
                 
             }
         }
-      return gridView.listOfSetCards[ofCard - 1].isSelected
+     
     }
 }
 

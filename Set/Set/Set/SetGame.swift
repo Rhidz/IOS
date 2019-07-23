@@ -150,5 +150,7 @@ struct SetGame {
             }
         }
          return lisOfIndexes
-    }}
+    }
+    
+}
 
