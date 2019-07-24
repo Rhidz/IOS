@@ -38,7 +38,6 @@ struct SetGame {
         if !playingCards[chosenCard].isSelected && !playingCards[chosenCard].isMatched {
             if chosenCards < 3 {
                 playingCards[chosenCard].isSelected = true
-               
                 chosenCards += 1
                 indicesOfChosenCards.append(chosenCard)
                 index = nil
@@ -64,6 +63,7 @@ struct SetGame {
         }
         return index
     }
+   
     mutating func matchCards(indexOf4thCard: Int) {
         var matchCount = [0,0,0,0]
         var matchFound = false
@@ -145,12 +145,13 @@ struct SetGame {
     
     mutating func dealCards()-> [Int] {
         var lisOfIndexes = [Int]()
+        //print(indicesofMatchedCards)
         if indicesofMatchedCards.count > 0 {
             for i in 0...2 {
                 if let card = drawModelCard() {
-                print(indicesofMatchedCards) //= card
+                playingCards[indicesofMatchedCards[i]] = card
                 lisOfIndexes.append(indicesofMatchedCards[i])
-                
+                }
             }
             if(indicesofMatchedCards.count == 3) {
                 indicesofMatchedCards.removeAll()
@@ -159,15 +160,14 @@ struct SetGame {
                 indicesofMatchedCards.removeFirst(3)
             }
         }
-    }
-        else {
+     else {
             for _ in 0...2 {
                  if let card = drawModelCard() {
                  playingCards.append(card)
             }
-                lisOfIndexes = []
+                
         }
-         
+         lisOfIndexes = []
        }
         return lisOfIndexes
     }

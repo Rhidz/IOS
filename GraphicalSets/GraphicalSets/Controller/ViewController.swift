@@ -1,37 +1,29 @@
-//
-//  ViewController.swift
-//  GraphicalSets
-//
-//  Created by Ishrat Rhidita on 20/7/19.
-//  Copyright © 2019 Ishrat Rhidita. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // create cards in model
         gridView.frame = CGRect(x: 0.0, y: 40.0, width: 415, height: 800)
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(addCards))
         swipe.direction = .up
-        gridView.addGestureRecognizer(swipe) 
+        gridView.addGestureRecognizer(swipe)
         self.view.addSubview(gridView)
         createDeck()
         gridView.cardsOnScreen = 12
         createSetCards(ofAmount: gridView.cardsOnScreen)
         makeCards()
-     }
-       
-     lazy var game = SetGame()
-     let gridView = GridView()
-     var indices : [Int] = [0]
+    }
+    
+    lazy var game = SetGame()
+    let gridView = GridView()
+    var indices : [Int] = [0]
     
     var deckOfCards = [SetCard]()
- 
+    
     private func makeCards(){
-       for _ in 0..<gridView.cardsOnScreen {
+        for _ in 0..<gridView.cardsOnScreen {
             if let card = game.drawModelCard() {
                 game.playingCards.append(card)
             }
@@ -55,7 +47,7 @@ class ViewController: UIViewController {
     
     private func createSetCards(ofAmount: Int){
         
-       for i in 0..<ofAmount {
+        for i in 0..<ofAmount {
             let card = SetView()
             let contentsToBeDrawn = deckOfCards.removeFirst()
             card.combinationOnCard.shape = contentsToBeDrawn.shape
@@ -68,18 +60,18 @@ class ViewController: UIViewController {
             card.addGestureRecognizer(tapGestureRecognizer)
             card.delegate = self
             gridView.addSubview(card)
-           if  indices.count == 3 {
-            print(gridView.listOfSetCards[indices[i]])
-            gridView.listOfSetCards[indices[i]] = card
-           } else {
-            gridView.listOfSetCards.append(card)
-        }
-        
-      gridView.setNeedsLayout()
+            if  indices.count == 3 {
+                //print(gridView.listOfSetCards[indices[i]])
+                gridView.listOfSetCards[indices[i]] = card
+            } else {
+                gridView.listOfSetCards.append(card)
+            }
+            
+            gridView.setNeedsLayout()
         }
         
     }
-        
+    
     @objc func addCards() {
         addCardsOnView()
     }
@@ -90,8 +82,8 @@ class ViewController: UIViewController {
         let oneAndTwoMatch = card1.combinationOnCard.color == card2.combinationOnCard.color
         let zeroAndTwoMatch = card0.combinationOnCard.color == card2.combinationOnCard.color
         
-        updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: zeroAndTwoMatch, zeroAndTwoMatch: oneAndTwoMatch)
-  
+        updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: oneAndTwoMatch, zeroAndTwoMatch: zeroAndTwoMatch)
+        
     }
     private func compareRank(card0: SetView, card1: SetView, card2: SetView){
         let allColorsMatch = (card0.combinationOnCard.rank == card1.combinationOnCard.rank) && (card0.combinationOnCard.rank == card2.combinationOnCard.rank) && (card1.combinationOnCard.rank == card2.combinationOnCard.rank)
@@ -100,7 +92,7 @@ class ViewController: UIViewController {
         let oneAndTwoMatch = card1.combinationOnCard.rank == card2.combinationOnCard.rank
         let zeroAndTwoMatch = card0.combinationOnCard.rank == card2.combinationOnCard.rank
         
-        updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: zeroAndTwoMatch, zeroAndTwoMatch: oneAndTwoMatch)
+        updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: oneAndTwoMatch, zeroAndTwoMatch: zeroAndTwoMatch)
         
     }
     private func compareShape(card0: SetView, card1: SetView, card2: SetView){
@@ -110,7 +102,7 @@ class ViewController: UIViewController {
         let oneAndTwoMatch = card1.combinationOnCard.shape == card2.combinationOnCard.shape
         let zeroAndTwoMatch = card0.combinationOnCard.shape == card2.combinationOnCard.shape
         
-        updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: zeroAndTwoMatch, zeroAndTwoMatch: oneAndTwoMatch)
+        updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: oneAndTwoMatch, zeroAndTwoMatch: zeroAndTwoMatch)
         
     }
     private func compareContent(card0: SetView, card1: SetView, card2: SetView){
@@ -120,7 +112,7 @@ class ViewController: UIViewController {
         let oneAndTwoMatch = card1.combinationOnCard.content == card2.combinationOnCard.content
         let zeroAndTwoMatch = card0.combinationOnCard.content == card2.combinationOnCard.content
         
-        updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: zeroAndTwoMatch, zeroAndTwoMatch: oneAndTwoMatch)
+       updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: oneAndTwoMatch, zeroAndTwoMatch: zeroAndTwoMatch)
         
     }
     
@@ -129,12 +121,24 @@ class ViewController: UIViewController {
         game.playingCards[game.indicesOfChosenCards[0]].color = allMatch || zeroAndOneMatch || zeroAndTwoMatch
         game.playingCards[game.indicesOfChosenCards[1]].color = allMatch || zeroAndOneMatch || oneAndTwoMatch
         game.playingCards[game.indicesOfChosenCards[2]].color = allMatch || zeroAndTwoMatch || oneAndTwoMatch
+        
+        game.playingCards[game.indicesOfChosenCards[0]].number = allMatch || zeroAndOneMatch || zeroAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[1]].number = allMatch || zeroAndOneMatch || oneAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[2]].number = allMatch || zeroAndTwoMatch || oneAndTwoMatch
+        
+        game.playingCards[game.indicesOfChosenCards[0]].shape = allMatch || zeroAndOneMatch || zeroAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[1]].shape = allMatch || zeroAndOneMatch || oneAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[2]].shape = allMatch || zeroAndTwoMatch || oneAndTwoMatch
+        
+        game.playingCards[game.indicesOfChosenCards[0]].content = allMatch || zeroAndOneMatch || zeroAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[1]].content = allMatch || zeroAndOneMatch || oneAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[2]].content = allMatch || zeroAndTwoMatch || oneAndTwoMatch
     }
-   
+    
     private func checkContentsForMatching(forIndex: Int) {
-       compareColor(card0: gridView.listOfSetCards[game.indicesOfChosenCards[0]], card1: gridView.listOfSetCards[game.indicesOfChosenCards[1]], card2: gridView.listOfSetCards[game.indicesOfChosenCards[2]])
-      
-      compareRank(card0: gridView.listOfSetCards[game.indicesOfChosenCards[0]], card1: gridView.listOfSetCards[game.indicesOfChosenCards[1]], card2: gridView.listOfSetCards[game.indicesOfChosenCards[2]])
+        compareColor(card0: gridView.listOfSetCards[game.indicesOfChosenCards[0]], card1: gridView.listOfSetCards[game.indicesOfChosenCards[1]], card2: gridView.listOfSetCards[game.indicesOfChosenCards[2]])
+        
+        compareRank(card0: gridView.listOfSetCards[game.indicesOfChosenCards[0]], card1: gridView.listOfSetCards[game.indicesOfChosenCards[1]], card2: gridView.listOfSetCards[game.indicesOfChosenCards[2]])
         
         compareShape(card0: gridView.listOfSetCards[game.indicesOfChosenCards[0]], card1: gridView.listOfSetCards[game.indicesOfChosenCards[1]], card2: gridView.listOfSetCards[game.indicesOfChosenCards[2]])
         
@@ -144,8 +148,8 @@ class ViewController: UIViewController {
         
         
     }
-   
-   private func updateView() {
+    
+    private func updateView() {
         for index in game.playingCards.indices {
             if game.playingCards[index].isSelected && !game.playingCards[index].isMatched {
                 gridView.updateView(atIndex: index, isSelected: true, isMatched: false)
@@ -171,12 +175,12 @@ class ViewController: UIViewController {
         createSetCards(ofAmount: 3)
         gridView.cardsOnScreen += 3
         if gridView.cardsOnScreen <= 24 {
-            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 122.0, height: 100.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
+            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 128.0, height: 100.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
             
             gridView.setNeedsLayout()
         }
         else {
-            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 126.0, height: 85.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
+            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 120.0, height: 85.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
             
             gridView.setNeedsLayout()
         }
@@ -198,12 +202,12 @@ extension ViewController: SetViewDelegate {
                 }
                 else {
                     updateView()
-                   
+                    
                 }
                 
             }
         }
-     
+        
     }
 }
 
