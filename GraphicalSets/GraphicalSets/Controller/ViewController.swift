@@ -4,7 +4,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // create cards in model
         gridView.frame = CGRect(x: 0.0, y: 40.0, width: 415, height: 800)
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(addCards))
         swipe.direction = .up
@@ -46,29 +45,35 @@ class ViewController: UIViewController {
     }
     
     private func createSetCards(ofAmount: Int){
-        
-        for i in 0..<ofAmount {
-            let card = SetView()
-            let contentsToBeDrawn = deckOfCards.removeFirst()
-            card.combinationOnCard.shape = contentsToBeDrawn.shape
-            card.combinationOnCard.color = contentsToBeDrawn.color
-            card.combinationOnCard.content = contentsToBeDrawn.content
-            card.combinationOnCard.rank = contentsToBeDrawn.rank
-            print(card.identifier)
-            let tapGestureRecognizer = UITapGestureRecognizer(target: card, action: #selector(card.didTap(sender:)))
-            card.isUserInteractionEnabled = true
-            card.addGestureRecognizer(tapGestureRecognizer)
-            card.delegate = self
-            gridView.addSubview(card)
-            if  indices.count == 3 {
-                //print(gridView.listOfSetCards[indices[i]])
-                gridView.listOfSetCards[indices[i]] = card
-            } else {
-                gridView.listOfSetCards.append(card)
+        if !deckOfCards.isEmpty {
+            for i in 0..<ofAmount {
+                let card = SetView()
+                let contentsToBeDrawn = deckOfCards.removeFirst()
+                card.combinationOnCard.shape = contentsToBeDrawn.shape
+                card.combinationOnCard.color = contentsToBeDrawn.color
+                card.combinationOnCard.content = contentsToBeDrawn.content
+                card.combinationOnCard.rank = contentsToBeDrawn.rank
+                print(card.identifier)
+                let tapGestureRecognizer = UITapGestureRecognizer(target: card, action: #selector(card.didTap(sender:)))
+                card.isUserInteractionEnabled = true
+                card.addGestureRecognizer(tapGestureRecognizer)
+                card.delegate = self
+                gridView.addSubview(card)
+                if  indices.count == 3 {
+                    //print(gridView.listOfSetCards[indices[i]])
+                    gridView.listOfSetCards[indices[i]] = card
+                } else {
+                    gridView.listOfSetCards.append(card)
+                }
+                
+                gridView.setNeedsLayout()
             }
-            
-            gridView.setNeedsLayout()
         }
+        else {
+            print("No more cards left")
+        }
+        
+       
         
     }
     
@@ -82,7 +87,10 @@ class ViewController: UIViewController {
         let oneAndTwoMatch = card1.combinationOnCard.color == card2.combinationOnCard.color
         let zeroAndTwoMatch = card0.combinationOnCard.color == card2.combinationOnCard.color
         
-        updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: oneAndTwoMatch, zeroAndTwoMatch: zeroAndTwoMatch)
+        game.playingCards[game.indicesOfChosenCards[0]].color = allColorsMatch || zeroAndOneMatch || zeroAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[1]].color = allColorsMatch || zeroAndOneMatch || oneAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[2]].color = allColorsMatch || zeroAndTwoMatch || oneAndTwoMatch
+        
         
     }
     private func compareRank(card0: SetView, card1: SetView, card2: SetView){
@@ -92,7 +100,10 @@ class ViewController: UIViewController {
         let oneAndTwoMatch = card1.combinationOnCard.rank == card2.combinationOnCard.rank
         let zeroAndTwoMatch = card0.combinationOnCard.rank == card2.combinationOnCard.rank
         
-        updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: oneAndTwoMatch, zeroAndTwoMatch: zeroAndTwoMatch)
+        game.playingCards[game.indicesOfChosenCards[0]].number = allColorsMatch || zeroAndOneMatch || zeroAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[1]].number = allColorsMatch || zeroAndOneMatch || oneAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[2]].number = allColorsMatch || zeroAndTwoMatch || oneAndTwoMatch
+        
         
     }
     private func compareShape(card0: SetView, card1: SetView, card2: SetView){
@@ -102,7 +113,9 @@ class ViewController: UIViewController {
         let oneAndTwoMatch = card1.combinationOnCard.shape == card2.combinationOnCard.shape
         let zeroAndTwoMatch = card0.combinationOnCard.shape == card2.combinationOnCard.shape
         
-        updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: oneAndTwoMatch, zeroAndTwoMatch: zeroAndTwoMatch)
+        game.playingCards[game.indicesOfChosenCards[0]].shape = allColorsMatch || zeroAndOneMatch || zeroAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[1]].shape = allColorsMatch || zeroAndOneMatch || oneAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[2]].shape = allColorsMatch || zeroAndTwoMatch || oneAndTwoMatch
         
     }
     private func compareContent(card0: SetView, card1: SetView, card2: SetView){
@@ -112,27 +125,10 @@ class ViewController: UIViewController {
         let oneAndTwoMatch = card1.combinationOnCard.content == card2.combinationOnCard.content
         let zeroAndTwoMatch = card0.combinationOnCard.content == card2.combinationOnCard.content
         
-       updateChosenCards(allMatch: allColorsMatch, zeroAndOneMatch: zeroAndOneMatch, oneAndTwoMatch: oneAndTwoMatch, zeroAndTwoMatch: zeroAndTwoMatch)
+        game.playingCards[game.indicesOfChosenCards[0]].content = allColorsMatch || zeroAndOneMatch || zeroAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[1]].content = allColorsMatch || zeroAndOneMatch || oneAndTwoMatch
+        game.playingCards[game.indicesOfChosenCards[2]].content = allColorsMatch || zeroAndTwoMatch || oneAndTwoMatch
         
-    }
-    
-    private func updateChosenCards (allMatch: Bool, zeroAndOneMatch: Bool, oneAndTwoMatch: Bool, zeroAndTwoMatch: Bool) {
-        
-        game.playingCards[game.indicesOfChosenCards[0]].color = allMatch || zeroAndOneMatch || zeroAndTwoMatch
-        game.playingCards[game.indicesOfChosenCards[1]].color = allMatch || zeroAndOneMatch || oneAndTwoMatch
-        game.playingCards[game.indicesOfChosenCards[2]].color = allMatch || zeroAndTwoMatch || oneAndTwoMatch
-        
-        game.playingCards[game.indicesOfChosenCards[0]].number = allMatch || zeroAndOneMatch || zeroAndTwoMatch
-        game.playingCards[game.indicesOfChosenCards[1]].number = allMatch || zeroAndOneMatch || oneAndTwoMatch
-        game.playingCards[game.indicesOfChosenCards[2]].number = allMatch || zeroAndTwoMatch || oneAndTwoMatch
-        
-        game.playingCards[game.indicesOfChosenCards[0]].shape = allMatch || zeroAndOneMatch || zeroAndTwoMatch
-        game.playingCards[game.indicesOfChosenCards[1]].shape = allMatch || zeroAndOneMatch || oneAndTwoMatch
-        game.playingCards[game.indicesOfChosenCards[2]].shape = allMatch || zeroAndTwoMatch || oneAndTwoMatch
-        
-        game.playingCards[game.indicesOfChosenCards[0]].content = allMatch || zeroAndOneMatch || zeroAndTwoMatch
-        game.playingCards[game.indicesOfChosenCards[1]].content = allMatch || zeroAndOneMatch || oneAndTwoMatch
-        game.playingCards[game.indicesOfChosenCards[2]].content = allMatch || zeroAndTwoMatch || oneAndTwoMatch
     }
     
     private func checkContentsForMatching(forIndex: Int) {
@@ -188,7 +184,6 @@ class ViewController: UIViewController {
     }
     
 }
-
 
 extension ViewController: SetViewDelegate {
     

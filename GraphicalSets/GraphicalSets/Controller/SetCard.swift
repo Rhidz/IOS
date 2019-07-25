@@ -19,7 +19,7 @@ struct SetCard : Hashable {
         case oval
         case squiggle
         case diamonds
-        case emoji
+        
         static var allShape = [Shape.oval, .squiggle, .diamonds]
     }
     
@@ -27,7 +27,7 @@ struct SetCard : Hashable {
         case red
         case purple
         case green
-        case blue
+        
         static var allColor = [Color.red, .purple, .green]
     }
     
@@ -35,7 +35,7 @@ struct SetCard : Hashable {
         case filled
         case outlined
         case strided
-        case different
+        
         static var allContent = [Content.filled, .outlined, .strided]
     }
     
@@ -43,7 +43,7 @@ struct SetCard : Hashable {
         case one = 1
         case two = 2
         case three = 3
-        case four = 4
+        
         static var allNumbers = [Number.one, .two,.three]
     }
     
