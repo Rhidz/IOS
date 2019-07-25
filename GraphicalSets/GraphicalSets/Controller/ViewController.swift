@@ -176,7 +176,7 @@ class ViewController: UIViewController {
             gridView.setNeedsLayout()
         }
         else {
-            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 120.0, height: 85.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
+            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 120.0, height: 80.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
             
             gridView.setNeedsLayout()
         }
