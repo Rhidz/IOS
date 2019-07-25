@@ -43,7 +43,7 @@ struct SetCard : Hashable {
         case one = 1
         case two = 2
         case three = 3
-        
+        case four = 4
         static var allNumbers = [Number.one, .two,.three]
     }
     
