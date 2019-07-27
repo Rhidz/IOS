@@ -12,11 +12,12 @@ class GridView: UIView {
     
    var listOfSetCards = [SetView]()
 
-   lazy var grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 128.0, height: 110.0)), frame: CGRect(origin: CGPoint(x: bounds.minX, y: bounds.minY), size: CGSize(width: bounds.width, height: bounds.height)))
+   lazy var grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 135.0, height: 100.0)), frame: CGRect(origin: CGPoint(x: bounds.minX, y: bounds.minY), size: CGSize(width: bounds.width, height: bounds.height)))
     
     var cardsOnScreen = 0 {
         didSet {
             setNeedsLayout()
+            /* write some code here to increase the size of cards when cardsOnScreen is <= 15 at the end of the game */
         }
     }
     override init(frame: CGRect) {

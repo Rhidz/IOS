@@ -9,7 +9,6 @@ class ViewController: UIViewController {
         swipe.direction = .up
         gridView.addGestureRecognizer(swipe)
         self.view.addSubview(gridView)
-        createDeck()
         gridView.cardsOnScreen = 12
         createSetCards(ofAmount: gridView.cardsOnScreen)
         makeCards()
@@ -19,7 +18,20 @@ class ViewController: UIViewController {
     let gridView = GridView()
     var indices : [Int] = [0]
     
-    var deckOfCards = [SetCard]()
+    var deckOfCards : [SetCard] = {
+        var deck = [SetCard]()
+        for shape in SetCard.Shape.allShape {
+            for color in SetCard.Color.allColor {
+                for content in SetCard.Content.allContent {
+                    for number in SetCard.Number.allNumbers {
+                        deck.append(SetCard(shape: shape, color: color, content: content, rank: number))
+                    }
+                }
+            }
+        }
+        deck.shuffle()
+        return deck
+    }()
     
     private func makeCards(){
         for _ in 0..<gridView.cardsOnScreen {
@@ -30,18 +42,6 @@ class ViewController: UIViewController {
     }
     
     private func createDeck() {
-        
-        for shape in SetCard.Shape.allShape {
-            for color in SetCard.Color.allColor {
-                for content in SetCard.Content.allContent {
-                    for number in SetCard.Number.allNumbers {
-                        deckOfCards.append(SetCard(shape: shape, color: color, content: content, rank: number))
-                    }
-                }
-            }
-        }
-        deckOfCards.shuffle()
-        
     }
     
     private func createSetCards(ofAmount: Int){
@@ -171,12 +171,12 @@ class ViewController: UIViewController {
         createSetCards(ofAmount: 3)
         gridView.cardsOnScreen += 3
         if gridView.cardsOnScreen <= 24 {
-            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 128.0, height: 100.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
+            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 135.0, height: 100.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
             
             gridView.setNeedsLayout()
         }
-        else {
-            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 120.0, height: 80.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
+        else if gridView.cardsOnScreen >= 27{
+            gridView.grid = Grid(layout: Grid.Layout.fixedCellSize(CGSize(width: 130.0, height: 70.0)), frame: CGRect(origin: CGPoint(x: gridView.bounds.minX, y: gridView.bounds.minY), size: CGSize(width: gridView.bounds.width, height: gridView.bounds.height)))
             
             gridView.setNeedsLayout()
         }
