@@ -140,26 +140,26 @@ class ViewController: UIViewController {
         
         compareContent(card0: gridView.listOfSetCards[game.indicesOfChosenCards[0]], card1: gridView.listOfSetCards[game.indicesOfChosenCards[1]], card2: gridView.listOfSetCards[game.indicesOfChosenCards[2]])
         game.matchCards(indexOf4thCard: forIndex)
-        updateView()
+        updateViewFromModel()
         
         
     }
     
-    private func updateView() {
+    private func updateViewFromModel() {
         for index in game.playingCards.indices {
             if game.playingCards[index].isSelected && !game.playingCards[index].isMatched {
-                gridView.updateView(atIndex: index, isSelected: true, isMatched: false)
+                gridView.updateViewInView(atIndex: index, isSelected: true, isMatched: false)
                 gridView.listOfSetCards[index].setNeedsDisplay()
                 /* need to change this */
                 
             }
             else if game.playingCards[index].isSelected && game.playingCards[index].isMatched {
-                gridView.updateView(atIndex: index, isSelected: true, isMatched: true)
+                gridView.updateViewInView(atIndex: index, isSelected: true, isMatched: true)
                 gridView.listOfSetCards[index].removeFromSuperview()
                 
             }
             else if !game.playingCards[index].isSelected && !game.playingCards[index].isMatched {
-                gridView.updateView(atIndex: index, isSelected: false, isMatched: false)
+                gridView.updateViewInView(atIndex: index, isSelected: false, isMatched: false)
                 gridView.listOfSetCards[index].setNeedsDisplay()
             }
         }
@@ -196,7 +196,7 @@ extension ViewController: SetViewDelegate {
                     
                 }
                 else {
-                    updateView()
+                    updateViewFromModel()
                     
                 }
                 

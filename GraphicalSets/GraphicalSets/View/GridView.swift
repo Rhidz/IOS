@@ -46,7 +46,7 @@ class GridView: UIView {
         color.setFill()
         roundedRect.fill()
     }
-    func updateView(atIndex: Int, isSelected: Bool, isMatched: Bool) {
+    func updateViewInView(atIndex: Int, isSelected: Bool, isMatched: Bool) {
         listOfSetCards[atIndex].isSelected = isSelected
         listOfSetCards[atIndex].isMatched = isMatched
         
