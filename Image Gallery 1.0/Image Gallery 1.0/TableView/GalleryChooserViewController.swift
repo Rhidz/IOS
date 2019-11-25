@@ -10,7 +10,7 @@ class GalleryChooserViewController: UITableViewController {
     
     private var chosenAlbum = ""
    
-    // CVC model
+    // CVC && TVC model
     private var imageGallery : [String:[UIImage]] = [:]
     
      override func viewDidLoad() {
@@ -45,12 +45,9 @@ class GalleryChooserViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return albums.count
     }
-
-    
+  
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentCell", for: indexPath)
-
-        // Configure the cell...
         cell.textLabel?.text = albums[indexPath.row]
 
         return cell
@@ -65,7 +62,7 @@ class GalleryChooserViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         chosenAlbum = albums[indexPath.row]
         if let cvc = lastSeguedTo {
-            cvc.chosenGallery = chosenAlbum
+            cvc.gallery = imageGallery[chosenAlbum]!
             print("Not Segueing")
         }
         else {
@@ -86,7 +83,6 @@ class GalleryChooserViewController: UITableViewController {
         return nil
     }
   
-
     /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -113,12 +109,8 @@ class GalleryChooserViewController: UITableViewController {
         return true
     }
     */
-     
- 
     // MARK: - Navigation
-
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+  // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
         if segue.identifier == "ChooseGallery" {
@@ -128,12 +120,12 @@ class GalleryChooserViewController: UITableViewController {
                 cvc?.chosenGallery = chosenAlbum
                 galleries.append(cvc)
             }
-           /* else {
+            else {
                 let gallery : [UIImage] = []
                 imageGallery.updateValue(gallery, forKey: chosenAlbum)
                 cvc?.gallery = imageGallery[chosenAlbum]!
                 cvc?.chosenGallery = chosenAlbum
-            } */
+            }
             
             
         }
@@ -142,12 +134,10 @@ class GalleryChooserViewController: UITableViewController {
     }
    
 }
-
-/*
-   
-   private var slpitViewDetailImageGalleryViewController : ImageGalleryViewController? {
-       return splitViewController?.viewControllers.last as? ImageGalleryViewController
-   }  */
-   /*   */
+extension GalleryChooserViewController: ImageGalleryDelegate {
+    func updateAlbums(for key: String, value: [UIImage]) {
+        imageGallery.updateValue(value, forKey: key)
+    }
+}
      
 

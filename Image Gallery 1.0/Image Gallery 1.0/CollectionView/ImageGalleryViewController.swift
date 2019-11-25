@@ -4,10 +4,15 @@ import UIKit
 class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
  
     // MARK DATA SOURCE METHODS
-    var chosenGallery:  String = ""
+    var chosenGallery:  String = "" {
+        didSet{
+            print("Setting the value for chosenGallery")
+        }
+    }
     var gallery : [UIImage] = []
-       
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    var delegate : ImageGalleryDelegate!
+    
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
            return gallery.count
        }
       
@@ -92,6 +97,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
         /* All the items that I might drop */
+        print("Never arriving here but why??")
     
         for item in coordinator.items {
             /* When the drop is local */
@@ -102,7 +108,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
                         gallery.insert(image, at: destinationIndexPath.item)
                         collectionView.deleteItems(at: [sourceIndexPath])
                         collectionView.insertItems(at: [destinationIndexPath])
-                        
+                        delegate.updateAlbums(for: chosenGallery, value: gallery)
                     })
                     coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
                 }
@@ -120,6 +126,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
                                     self.image = UIImage(data: imageData)
                                     placeholderContext.commitInsertion(dataSourceUpdates: { insertionIndexPath in
                                         self.gallery.insert(self.image!, at: insertionIndexPath.item)
+                                        self.delegate.updateAlbums(for: self.chosenGallery, value: self.gallery)
                                   
                                     })
                                 }
@@ -146,6 +153,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        delegate = self as? ImageGalleryDelegate
 
     }
   

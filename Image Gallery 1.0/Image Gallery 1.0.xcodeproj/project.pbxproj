@@ -16,6 +16,7 @@
 		8443C0E523883DF000B2E6C4 /* ImageGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443C0E423883DF000B2E6C4 /* ImageGallery.swift */; };
 		845293C1237DBF2100EC10FE /* GalleryChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845293C0237DBF2100EC10FE /* GalleryChooserViewController.swift */; };
 		8463298E236213AA00D163B5 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463298D236213AA00D163B5 /* Utilities.swift */; };
+		847F2FA9238C462700DA9192 /* ImageGalleryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F2FA8238C462700DA9192 /* ImageGalleryDelegate.swift */; };
 		8480710623830FA10070C2A1 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480710523830FA10070C2A1 /* ImageCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		8443C0E423883DF000B2E6C4 /* ImageGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGallery.swift; sourceTree = "<group>"; };
 		845293C0237DBF2100EC10FE /* GalleryChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryChooserViewController.swift; sourceTree = "<group>"; };
 		8463298D236213AA00D163B5 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		847F2FA8238C462700DA9192 /* ImageGalleryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageGalleryDelegate.swift; path = "Image Gallery 1.0/ImageGalleryDelegate.swift"; sourceTree = SOURCE_ROOT; };
 		8480710523830FA10070C2A1 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 		8443C0E623883FC100B2E6C4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				847F2FA8238C462700DA9192 /* ImageGalleryDelegate.swift */,
 				8443C0E423883DF000B2E6C4 /* ImageGallery.swift */,
 			);
 			path = Model;
@@ -185,6 +188,7 @@
 				8417C9EE2360C1450026CE7C /* AppDelegate.swift in Sources */,
 				8417C9F02360C1450026CE7C /* SceneDelegate.swift in Sources */,
 				8463298E236213AA00D163B5 /* Utilities.swift in Sources */,
+				847F2FA9238C462700DA9192 /* ImageGalleryDelegate.swift in Sources */,
 				8417CA032360C19D0026CE7C /* ImageGalleryViewController.swift in Sources */,
 				8443C0E523883DF000B2E6C4 /* ImageGallery.swift in Sources */,
 				8480710623830FA10070C2A1 /* ImageCell.swift in Sources */,
