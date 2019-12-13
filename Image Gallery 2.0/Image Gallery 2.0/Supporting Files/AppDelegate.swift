@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Image Gallery 1.0
+//  Image Gallery 2.0
 //
-//  Created by Admin on 23/10/2019.
+//  Created by Admin on 03/12/2019.
 //  Copyright © 2019 Admin. All rights reserved.
 //
 

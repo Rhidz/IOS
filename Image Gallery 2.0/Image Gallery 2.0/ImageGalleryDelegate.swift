@@ -10,4 +10,5 @@ import Foundation
 import UIKit
 protocol ImageGalleryDelegate {
     func updateAlbums(for key: String, value: [UIImage])
+    func row(at gallery: Int ) -> String
 }

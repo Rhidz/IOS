@@ -1,14 +1,20 @@
-
+ 
 import UIKit
 
 class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
  
-    // MARK DATA SOURCE METHODS
-    var chosenGallery:  String = "" {
-        didSet{
-            print("Setting the value for chosenGallery")
+    @IBOutlet weak var imageCollectionView: UICollectionView!{
+        didSet {
+            imageCollectionView.dataSource = self
+            imageCollectionView.delegate = self
+            imageCollectionView.dragDelegate = self
+            imageCollectionView.dropDelegate = self
+            
         }
     }
+    
+    // MARK DATA SOURCE METHODS
+    var chosenGallery:  Int = -1 
     var gallery : [UIImage] = []
     var delegate : ImageGalleryDelegate!
     
@@ -97,8 +103,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
         /* All the items that I might drop */
-        print("Never arriving here but why??")
-    
+        
         for item in coordinator.items {
             /* When the drop is local */
             if let sourceIndexPath = item.sourceIndexPath {
@@ -108,7 +113,8 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
                         gallery.insert(image, at: destinationIndexPath.item)
                         collectionView.deleteItems(at: [sourceIndexPath])
                         collectionView.insertItems(at: [destinationIndexPath])
-                        delegate.updateAlbums(for: chosenGallery, value: gallery)
+                        let row = delegate.row(at: chosenGallery)
+                        delegate.updateAlbums(for: row, value: gallery)
                     })
                     coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
                 }
@@ -126,7 +132,8 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
                                     self.image = UIImage(data: imageData)
                                     placeholderContext.commitInsertion(dataSourceUpdates: { insertionIndexPath in
                                         self.gallery.insert(self.image!, at: insertionIndexPath.item)
-                                        self.delegate.updateAlbums(for: self.chosenGallery, value: self.gallery)
+                                        let row = self.delegate.row(at: self.chosenGallery)
+                                        self.delegate.updateAlbums(for: row, value: self.gallery)
                                   
                                     })
                                 }
@@ -140,24 +147,8 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
             }
         }
     }
-          
-   /* This view will accept all those drops of urls and images */
-    @IBOutlet weak var imageCollectionView: UICollectionView! {
-        didSet {
-            imageCollectionView.dataSource = self
-            imageCollectionView.delegate = self
-            imageCollectionView.dragDelegate = self
-            imageCollectionView.dropDelegate = self
-        }
-    }
-   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        delegate = self as? ImageGalleryDelegate
-
-    }
-  
-}
+ }
+ 
 
 
 
