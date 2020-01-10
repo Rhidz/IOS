@@ -18,7 +18,6 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         document?.open { success in
             if success {
                 self.title = self.document?.localizedName
@@ -31,9 +30,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
             }
             
         }
-      
-    }
-    
+   }
     
     // MARK:- MODEL
     private var imageGallery: ImageGallery? {
@@ -89,6 +86,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     let memoryCapacity = 100 * 1024 * 1024
    
     lazy var cache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, directory: sandboxDirectory)
+    
     typealias DownloadCompletionHandler = (Result<Data,Error>) -> ()
     
     private func createAndRetrieveURLSession() -> URLSession {
@@ -102,16 +100,16 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
         var sharedData: Data?
         let url = url.imageURL
         let urlRequest = URLRequest(url: url)
-        // First try fetching the data if available in cache
         
+        // First try fetching the data if available in cache
         if let cachedData = self.cache.cachedResponse(for: urlRequest) {
             sharedData = cachedData.data
             self.notCacheRespose = true
-            print("Are we caching from here")
+            print("I am being fetched from the cache memory.")
          }
-        else {
             
-                self.createAndRetrieveURLSession().dataTask(with: urlRequest) { (data, response, error) in
+        else {
+             self.createAndRetrieveURLSession().dataTask(with: urlRequest) { (data, response, error) in
                         if let error = error {
                             completionHandler(.failure(error))
                             print("Error")
@@ -121,18 +119,13 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
                             let cachedData = CachedURLResponse(response: response!, data: data!)
                             self.cache.storeCachedResponse(cachedData, for: urlRequest)
                             sharedData = cachedData.data
-                            //self.notCacheRespose = true
                             completionHandler(.success(data!))
                         }
                          
                     }.resume()
                 }
-                
-        
           return sharedData
         }
-      
-    
     
     // MARK:- DATA SOURCE
     
@@ -255,6 +248,30 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
         }
         
     }
+    var itemAt: Int?
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        itemAt = indexPath.item
+        performSegue(withIdentifier: "sv", sender: self)
+    }
+    
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "sv" {
+            if let cvc = segue.destination as? ScrollViewController, let url = localImageGallery?[itemAt!].url {
+               if let data = retrieveCachedResponseAsImage(url: url, completionHandler: { response in
+                    switch response {
+                        case .success(let yourData):
+                        print("I have found data \(yourData)")
+                        case .failure(let error):
+                        debugPrint(error.localizedDescription)
+                    }
+                }) {
+                    cvc.data = data
+            }
+        }
+    }
+    }
     
     // MARK:- CLOSE
     
@@ -265,8 +282,6 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
         }
         
     }
-    
-    
     // MARK:- SAVE
     
     @IBAction func save(_ sender: UIBarButtonItem? = nil) {

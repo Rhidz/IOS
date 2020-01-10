@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841F3DEB23C3AA9E00CCC502 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F3DEA23C3AA9E00CCC502 /* ScrollViewController.swift */; };
 		84AEA5EB23BB8E490038F712 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEA5EA23BB8E490038F712 /* AppDelegate.swift */; };
 		84AEA5ED23BB8E490038F712 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEA5EC23BB8E490038F712 /* DocumentBrowserViewController.swift */; };
 		84AEA5F123BB8E490038F712 /* ImageGalleryDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AEA5F023BB8E490038F712 /* ImageGalleryDocument.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		841F3DEA23C3AA9E00CCC502 /* ScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 		84AEA5E723BB8E490038F712 /* Persistent Image Gallery NEW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Persistent Image Gallery NEW.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AEA5EA23BB8E490038F712 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84AEA5EC23BB8E490038F712 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +47,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		841F3DE923C3A01C00CCC502 /* DocumentBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				84AEA5EC23BB8E490038F712 /* DocumentBrowserViewController.swift */,
+				84AEA5F023BB8E490038F712 /* ImageGalleryDocument.swift */,
+			);
+			path = DocumentBrowser;
+			sourceTree = "<group>";
+		};
 		84363C8523BBC1D800EC5FCE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,9 +85,9 @@
 			isa = PBXGroup;
 			children = (
 				84363C8523BBC1D800EC5FCE /* Supporting Files */,
-				84AEA5EC23BB8E490038F712 /* DocumentBrowserViewController.swift */,
-				84AEA5F023BB8E490038F712 /* ImageGalleryDocument.swift */,
+				841F3DE923C3A01C00CCC502 /* DocumentBrowser */,
 				84AEA5F223BB8E490038F712 /* Main.storyboard */,
+				841F3DEA23C3AA9E00CCC502 /* ScrollViewController.swift */,
 				84AEA60A23BB8FCE0038F712 /* CollectionViewController and Model */,
 				84AEA5F723BB8E4A0038F712 /* LaunchScreen.storyboard */,
 				84AEA5FA23BB8E4A0038F712 /* Info.plist */,
@@ -169,6 +180,7 @@
 				84AEA60723BB8F4F0038F712 /* ImageGalleryViewController.swift in Sources */,
 				84AEA5F123BB8E490038F712 /* ImageGalleryDocument.swift in Sources */,
 				84AEA60623BB8F4F0038F712 /* ImageGalleryViewCell.swift in Sources */,
+				841F3DEB23C3AA9E00CCC502 /* ScrollViewController.swift in Sources */,
 				84AEA60523BB8F4F0038F712 /* ImageGallery.swift in Sources */,
 				84AEA5ED23BB8E490038F712 /* DocumentBrowserViewController.swift in Sources */,
 				84AEA60923BB8F7B0038F712 /* Utilities.swift in Sources */,
